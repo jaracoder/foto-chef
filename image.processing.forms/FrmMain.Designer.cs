@@ -38,39 +38,53 @@
             this.lblHeight = new System.Windows.Forms.Label();
             this.txtHeight = new System.Windows.Forms.TextBox();
             this.groupRedimension = new System.Windows.Forms.GroupBox();
+            this.checkCompresion = new System.Windows.Forms.CheckBox();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.imageBox)).BeginInit();
             this.groupRedimension.SuspendLayout();
             this.SuspendLayout();
             // 
+            // saveImageDialog
+            // 
+            this.saveImageDialog.DefaultExt = "png";
+            this.saveImageDialog.Filter = "Image files|*.jpg;*.png;";
+            this.saveImageDialog.RestoreDirectory = true;
+            // 
             // openFileDialog1
             // 
-            this.openFileDialog1.FileName = "openImageDialog";
+            this.openFileDialog1.DefaultExt = "png";
+            this.openFileDialog1.Filter = "Image files|*.jpg;*.png;";
+            this.openFileDialog1.RestoreDirectory = true;
             // 
             // imageBox
             // 
-            this.imageBox.Location = new System.Drawing.Point(23, 19);
+            this.imageBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.imageBox.Location = new System.Drawing.Point(28, 51);
             this.imageBox.Name = "imageBox";
             this.imageBox.Size = new System.Drawing.Size(170, 167);
+            this.imageBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.imageBox.TabIndex = 0;
             this.imageBox.TabStop = false;
             // 
             // btnLoadImage
             // 
-            this.btnLoadImage.Location = new System.Drawing.Point(23, 192);
+            this.btnLoadImage.Location = new System.Drawing.Point(28, 224);
             this.btnLoadImage.Name = "btnLoadImage";
             this.btnLoadImage.Size = new System.Drawing.Size(170, 23);
             this.btnLoadImage.TabIndex = 1;
             this.btnLoadImage.Text = "Subir imagen";
             this.btnLoadImage.UseVisualStyleBackColor = true;
+            this.btnLoadImage.Click += new System.EventHandler(this.btnLoadImage_Click);
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(407, 192);
+            this.btnSave.Location = new System.Drawing.Point(363, 224);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(75, 23);
+            this.btnSave.Size = new System.Drawing.Size(127, 23);
             this.btnSave.TabIndex = 2;
-            this.btnSave.Text = "Guardar";
+            this.btnSave.Text = "Guardar cambios";
             this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // txtWidth
             // 
@@ -106,22 +120,45 @@
             // 
             // groupRedimension
             // 
+            this.groupRedimension.Controls.Add(this.checkCompresion);
             this.groupRedimension.Controls.Add(this.txtHeight);
             this.groupRedimension.Controls.Add(this.txtWidth);
             this.groupRedimension.Controls.Add(this.lblHeight);
             this.groupRedimension.Controls.Add(this.lblWidth);
-            this.groupRedimension.Location = new System.Drawing.Point(214, 19);
+            this.groupRedimension.Location = new System.Drawing.Point(222, 31);
             this.groupRedimension.Name = "groupRedimension";
-            this.groupRedimension.Size = new System.Drawing.Size(268, 87);
+            this.groupRedimension.Size = new System.Drawing.Size(268, 126);
             this.groupRedimension.TabIndex = 8;
             this.groupRedimension.TabStop = false;
-            this.groupRedimension.Text = "Redimensionar imagen";
+            this.groupRedimension.Text = "Dimensiones";
+            // 
+            // checkCompresion
+            // 
+            this.checkCompresion.AutoSize = true;
+            this.checkCompresion.Checked = true;
+            this.checkCompresion.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkCompresion.Location = new System.Drawing.Point(20, 88);
+            this.checkCompresion.Name = "checkCompresion";
+            this.checkCompresion.Size = new System.Drawing.Size(108, 17);
+            this.checkCompresion.TabIndex = 0;
+            this.checkCompresion.Text = "Comprimir imagen";
+            this.checkCompresion.UseVisualStyleBackColor = true;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(28, 29);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(42, 13);
+            this.label1.TabIndex = 10;
+            this.label1.Text = "Imagen";
             // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(505, 231);
+            this.ClientSize = new System.Drawing.Size(520, 279);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.groupRedimension);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnLoadImage);
@@ -135,6 +172,7 @@
             this.groupRedimension.ResumeLayout(false);
             this.groupRedimension.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -150,6 +188,8 @@
         private System.Windows.Forms.Label lblHeight;
         private System.Windows.Forms.TextBox txtHeight;
         private System.Windows.Forms.GroupBox groupRedimension;
+        private System.Windows.Forms.CheckBox checkCompresion;
+        private System.Windows.Forms.Label label1;
     }
 }
 
