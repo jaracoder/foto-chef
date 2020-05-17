@@ -40,6 +40,7 @@
             this.groupRedimension = new System.Windows.Forms.GroupBox();
             this.checkCompresion = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.checkEscalaGrises = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.imageBox)).BeginInit();
             this.groupRedimension.SuspendLayout();
             this.SuspendLayout();
@@ -120,6 +121,7 @@
             // 
             // groupRedimension
             // 
+            this.groupRedimension.Controls.Add(this.checkEscalaGrises);
             this.groupRedimension.Controls.Add(this.checkCompresion);
             this.groupRedimension.Controls.Add(this.txtHeight);
             this.groupRedimension.Controls.Add(this.txtWidth);
@@ -127,7 +129,7 @@
             this.groupRedimension.Controls.Add(this.lblWidth);
             this.groupRedimension.Location = new System.Drawing.Point(222, 31);
             this.groupRedimension.Name = "groupRedimension";
-            this.groupRedimension.Size = new System.Drawing.Size(268, 126);
+            this.groupRedimension.Size = new System.Drawing.Size(268, 149);
             this.groupRedimension.TabIndex = 8;
             this.groupRedimension.TabStop = false;
             this.groupRedimension.Text = "Dimensiones";
@@ -137,7 +139,7 @@
             this.checkCompresion.AutoSize = true;
             this.checkCompresion.Checked = true;
             this.checkCompresion.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkCompresion.Location = new System.Drawing.Point(20, 88);
+            this.checkCompresion.Location = new System.Drawing.Point(154, 90);
             this.checkCompresion.Name = "checkCompresion";
             this.checkCompresion.Size = new System.Drawing.Size(108, 17);
             this.checkCompresion.TabIndex = 0;
@@ -152,6 +154,16 @@
             this.label1.Size = new System.Drawing.Size(42, 13);
             this.label1.TabIndex = 10;
             this.label1.Text = "Imagen";
+            // 
+            // checkEscalaGrises
+            // 
+            this.checkEscalaGrises.AutoSize = true;
+            this.checkEscalaGrises.Location = new System.Drawing.Point(23, 90);
+            this.checkEscalaGrises.Name = "checkEscalaGrises";
+            this.checkEscalaGrises.Size = new System.Drawing.Size(103, 17);
+            this.checkEscalaGrises.TabIndex = 7;
+            this.checkEscalaGrises.Text = "Escala de grises";
+            this.checkEscalaGrises.UseVisualStyleBackColor = true;
             // 
             // FrmMain
             // 
@@ -190,6 +202,7 @@
         private System.Windows.Forms.GroupBox groupRedimension;
         private System.Windows.Forms.CheckBox checkCompresion;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.CheckBox checkEscalaGrises;
     }
 }
 

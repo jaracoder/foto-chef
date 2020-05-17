@@ -9,17 +9,13 @@ namespace image.processing.forms
 {
     public partial class FrmMain : Form
     {
-        public ImageProcessor Processor;
-
         private string Name = string.Empty;
         private string Extension = string.Empty;
       
 
         public FrmMain()
         {
-            InitializeComponent();
-
-            Processor = new ImageProcessor();
+            InitializeComponent();     
         }
 
         private void btnLoadImage_Click(object sender, EventArgs e)
@@ -64,7 +60,7 @@ namespace image.processing.forms
                 string fileName = imageBox.ImageLocation;
 
                 byte[] img = getByteArrayImageFromFileName(fileName);
-                byte[] newImg = Processor.ResizeImage(img, newHeight, newWidth);
+                byte[] newImg = ImageProcessor.ResizeImage(img, newHeight, newWidth);
 
                 processAndSave(newImg);
             }
@@ -82,15 +78,22 @@ namespace image.processing.forms
             {
                 string fileName = saveImageDialog.FileName;
 
+
+                if (checkEscalaGrises.Checked)
+                {
+                    img = ImageProcessor.MakeOrangeScale(img);//MakeGrayscale3(img);
+                }
+
+
                 if (checkCompresion.Checked)
                 {
                     if (isPNGImage())
                     {
-                        Processor.CompressPNG(img, fileName);
+                        ImageProcessor.CompressPNG(img, fileName);
                     }
                     else
                     {
-                        Processor.CompressJPG(img, fileName);
+                        ImageProcessor.CompressJPG(img, fileName);
                     }
                 }
                 else

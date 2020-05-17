@@ -17,7 +17,7 @@ namespace image.processing.binary
         /// <param name="height">New height</param>
         /// <param name="maxOfWidth">New max width</param>
         /// <returns></returns>
-        public byte[] ResizeImage(byte[] imgBytes, int height, int maxOfWidth = 0)
+        public static byte[] ResizeImage(byte[] imgBytes, int height, int maxOfWidth = 0)
         {
             Image img = MakeImage(imgBytes);
             int width = Convert.ToInt32(Convert.ToDouble(img.Width) * (Convert.ToDouble(height) / Convert.ToDouble(img.Height)));
@@ -55,7 +55,7 @@ namespace image.processing.binary
         /// <param name="imgBytes">Array of bytes of image</param>
         /// <param name="fileName">Image path</param>
         /// <remarks>Change depth to 8 bits</remarks>
-        public bool CompressPNG(byte[] imgBytes, string fileName)
+        public static bool CompressPNG(byte[] imgBytes, string fileName)
         {
             try
             {
@@ -64,6 +64,7 @@ namespace image.processing.binary
                     using (MemoryStream ms = new MemoryStream(imgBytes))
                     {
                         var quantizer = new WuQuantizer();
+                        
                         using (var quantized = quantizer.QuantizeImage(new Bitmap(ms)))
                         {
                             quantized.Save(fileName, ImageFormat.Png);
@@ -86,7 +87,7 @@ namespace image.processing.binary
         /// <param name="imgBytes">Array of bytes of image</param>
         /// <param name="fileName">Image path</param>
         /// <param name="levelCompression">Compression level. 0 maximum compression and 100 minimum.</param>
-        public bool CompressJPG(byte[] imgBytes, string fileName, long levelCompression = 30L)
+        public static bool CompressJPG(byte[] imgBytes, string fileName, long levelCompression = 30L)
         {
             try
             {
@@ -117,9 +118,102 @@ namespace image.processing.binary
         }
 
 
+        public static byte[] MakeGrayscale3(byte[] imgBytes)
+        {
+            Bitmap original;
+            using (var ms = new MemoryStream(imgBytes))
+            {
+                original = new Bitmap(ms);
+            }
+
+            //create a blank bitmap the same size as original
+            Bitmap newBitmap = new Bitmap(original.Width, original.Height);
+
+            //get a graphics object from the new image
+            using (Graphics g = Graphics.FromImage(newBitmap))
+            {
+
+                //create the grayscale ColorMatrix
+                ColorMatrix colorMatrix = new ColorMatrix(
+                   new float[][]
+                   {
+                        new float[] {.3f, .3f, .3f, 0, 0},
+                        new float[] {.59f, .59f, .59f, 0, 0},
+                        new float[] {.11f, .11f, .11f, 0, 0},
+                        new float[] {0, 0, 0, 1, 0},
+                        new float[] {0, 0, 0, 0, 1}
+                   });
+
+                //create some image attributes
+                using (ImageAttributes attributes = new ImageAttributes())
+                {
+
+                    //set the color matrix attribute
+                    attributes.SetColorMatrix(colorMatrix);
+
+                    //draw the original image on the new image
+                    //using the grayscale color matrix
+                    g.DrawImage(original, new Rectangle(0, 0, original.Width, original.Height),
+                                0, 0, original.Width, original.Height, GraphicsUnit.Pixel, attributes);
+                }
+            }
+
+            return (byte[])new ImageConverter()
+                .ConvertTo(newBitmap, typeof(byte[]));
+        }
+
+
+        public static byte[] MakeOrangeScale(byte[] imgBytes)
+        {
+            Bitmap original;
+            using (var ms = new MemoryStream(imgBytes))
+            {
+                original = new Bitmap(ms);
+            }
+
+            //create a blank bitmap the same size as original
+            Bitmap newBitmap = new Bitmap(original.Width, original.Height);
+
+            //get a graphics object from the new image
+            using (Graphics g = Graphics.FromImage(newBitmap))
+            {
+
+                Color color = Color.Orange;
+             //  const float scale = 2.0f;
+
+                //create the grayscale ColorMatrix
+                ColorMatrix colorMatrix = new ColorMatrix(
+                   new float[][]
+                   {
+                        new float[] {color.R / 255f, 0, 0, 0, 0},
+                        new float[] {color.G / 255f, 0, 0, 0, 0},
+                        new float[] {color.B / 255f, 0, 0, 0, 0},
+                        new float[] {0, 0, 0, 1, 0},
+                        new float[] {0, 0, 0, 0, 1}
+                   });
+
+                //create some image attributes
+                using (ImageAttributes attributes = new ImageAttributes())
+                {
+
+                    //set the color matrix attribute
+                    attributes.SetColorMatrix(colorMatrix);
+
+                    //draw the original image on the new image
+                    //using the grayscale color matrix
+                    g.DrawImage(original, new Rectangle(0, 0, original.Width, original.Height),
+                                0, 0, original.Width, original.Height, GraphicsUnit.Pixel, attributes);
+                }
+            }
+
+            return (byte[])new ImageConverter()
+                .ConvertTo(newBitmap, typeof(byte[]));
+        }
+
+
         #region private methods
 
-        private bool IsValidImage(string fileName, string ext)
+        private static bool IsValidImage(string fileName, string ext)
         {
             if (Path.GetExtension(fileName).ToLower() != ext.ToLower())
                 return false;
@@ -128,7 +222,7 @@ namespace image.processing.binary
         }
 
 
-        private ImageCodecInfo GetEncoder(ImageFormat format)
+        private static ImageCodecInfo GetEncoder(ImageFormat format)
         {
             ImageCodecInfo[] codecs = ImageCodecInfo.GetImageDecoders();
             foreach (ImageCodecInfo codec in codecs)
@@ -141,7 +235,7 @@ namespace image.processing.binary
             return null;
         }
 
-        private Image MakeImage(byte[] byteArrayIn)
+        private static Image MakeImage(byte[] byteArrayIn)
         {
             MemoryStream ms = new MemoryStream(byteArrayIn);
             Image returnImage = Image.FromStream(ms);
