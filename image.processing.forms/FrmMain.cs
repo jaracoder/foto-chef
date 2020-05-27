@@ -81,7 +81,15 @@ namespace image.processing.forms
 
                 if (checkEscalaGrises.Checked)
                 {
-                    img = ImageProcessor.MakeOrangeScale(img);//MakeGrayscale3(img);
+                    img = ImageProcessor.MakeGrayscale3(img);
+                }
+                else
+                {
+                    if (checkPorColor.Checked)
+                    {
+                        Color color = panelColorSelected.BackColor;
+                        img  = ImageProcessor.MakeScaleByColor(img, color);
+                    }
                 }
 
 
@@ -130,6 +138,28 @@ namespace image.processing.forms
 
                     return ms.ToArray();
                 }
+            }
+        }
+
+        private void checkPorColor_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkPorColor.Checked)
+            {
+                checkEscalaGrises.Checked = false;
+
+                var result = colorDialog1.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    panelColorSelected.BackColor = colorDialog1.Color;
+                }
+            }
+        }
+
+        private void checkEscalaGrises_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkEscalaGrises.Checked)
+            {
+                checkPorColor.Checked = false;
             }
         }
     }

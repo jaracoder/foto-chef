@@ -163,7 +163,7 @@ namespace image.processing.binary
         }
 
 
-        public static byte[] MakeOrangeScale(byte[] imgBytes)
+        public static byte[] MakeScaleByColor(byte[] imgBytes, Color color)
         {
             Bitmap original;
             using (var ms = new MemoryStream(imgBytes))
@@ -177,19 +177,14 @@ namespace image.processing.binary
             //get a graphics object from the new image
             using (Graphics g = Graphics.FromImage(newBitmap))
             {
-
-                Color color = Color.Orange;
-             //  const float scale = 2.0f;
-
-                //create the grayscale ColorMatrix
-                ColorMatrix colorMatrix = new ColorMatrix(
+               ColorMatrix colorMatrix = new ColorMatrix(
                    new float[][]
                    {
-                        new float[] {color.R / 255f, 0, 0, 0, 0},
-                        new float[] {color.G / 255f, 0, 0, 0, 0},
-                        new float[] {color.B / 255f, 0, 0, 0, 0},
-                        new float[] {0, 0, 0, 1, 0},
-                        new float[] {0, 0, 0, 0, 1}
+                        new float[] { color.R / 255.0f, 0, 0, 0, 0 },
+                        new float[] { 0, color.G / 255.0f, 0, 0, 0 },
+                        new float[] { 0, 0, color.B / 255.0f, 0, 0 },
+                        new float[] { 0, 0, 0, 1, 0 },
+                        new float[] { 0, 0, 0, 0, 1 }
                    });
 
                 //create some image attributes
