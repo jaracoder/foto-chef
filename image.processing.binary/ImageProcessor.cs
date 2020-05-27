@@ -53,26 +53,23 @@ namespace image.processing.binary
         /// Compress an image in PNG format from a bitmap
         /// </summary>
         /// <param name="imgBytes">Array of bytes of image</param>
-        /// <param name="fileName">Image path</param>
         /// <remarks>Change depth to 8 bits</remarks>
-        public static bool CompressPNG(byte[] imgBytes, string fileName)
+        public static byte[] CompressPNG(byte[] imgBytes)
         {
             try
             {
-                if (IsValidImage(fileName, ".png"))
+                using (MemoryStream ms = new MemoryStream(imgBytes))
                 {
-                    using (MemoryStream ms = new MemoryStream(imgBytes))
+                    var quantizer = new WuQuantizer();
+
+                    using (var quantized = quantizer.QuantizeImage(new Bitmap(ms)))
                     {
-                        var quantizer = new WuQuantizer();
-                        
-                        using (var quantized = quantizer.QuantizeImage(new Bitmap(ms)))
-                        {
-                            quantized.Save(fileName, ImageFormat.Png);
-                        }
-                        return true;
-                    }                    
+                        var imgCompress = new MemoryStream();
+                        quantized.Save(imgCompress, ImageFormat.Png);
+
+                        return imgCompress.ToArray();
+                    }
                 }
-                return false;
             }
             catch
             {
@@ -85,31 +82,28 @@ namespace image.processing.binary
         /// Compress an image in JPG format from a bitmap
         /// </summary>
         /// <param name="imgBytes">Array of bytes of image</param>
-        /// <param name="fileName">Image path</param>
         /// <param name="levelCompression">Compression level. 0 maximum compression and 100 minimum.</param>
-        public static bool CompressJPG(byte[] imgBytes, string fileName, long levelCompression = 30L)
+        public static byte[] CompressJPG(byte[] imgBytes, long levelCompression = 30L)
         {
             try
             {
-                if (IsValidImage(fileName, ".jpg"))
+                using (MemoryStream ms = new MemoryStream(imgBytes))
                 {
-                    using (MemoryStream ms = new MemoryStream(imgBytes))
-                    {
-                        ImageCodecInfo jpgEncoder = GetEncoder(ImageFormat.Jpeg);
+                    ImageCodecInfo jpgEncoder = GetEncoder(ImageFormat.Jpeg);
 
-                        Encoder myEncoder = Encoder.Quality;
-                        EncoderParameters myEncoderParameters = new EncoderParameters(1);
+                    Encoder myEncoder = Encoder.Quality;
+                    EncoderParameters myEncoderParameters = new EncoderParameters(1);
 
-                        EncoderParameter myEncoderParameter = new EncoderParameter(myEncoder, levelCompression);
-                        myEncoderParameters.Param[0] = myEncoderParameter;
+                    EncoderParameter myEncoderParameter = new EncoderParameter(myEncoder, levelCompression);
+                    myEncoderParameters.Param[0] = myEncoderParameter;
 
-                        new Bitmap(ms)
-                            .Save(fileName, jpgEncoder, myEncoderParameters);
+                    var imgCompress = new MemoryStream();
 
-                        return true;
-                    }
+                    new Bitmap(ms)
+                            .Save(imgCompress, jpgEncoder, myEncoderParameters);
+
+                    return imgCompress.ToArray();
                 }
-                return false;
             }
             catch
             {
@@ -207,15 +201,6 @@ namespace image.processing.binary
 
 
         #region private methods
-
-        private static bool IsValidImage(string fileName, string ext)
-        {
-            if (Path.GetExtension(fileName).ToLower() != ext.ToLower())
-                return false;
-
-            return true;
-        }
-
 
         private static ImageCodecInfo GetEncoder(ImageFormat format)
         {

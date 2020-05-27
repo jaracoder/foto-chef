@@ -73,7 +73,7 @@ namespace image.processing.forms
         private void processAndSave(byte[] img)
         {
             saveImageDialog.FileName = Name + Extension;
-          
+
             if (saveImageDialog.ShowDialog() == DialogResult.OK)
             {
                 string fileName = saveImageDialog.FileName;
@@ -88,7 +88,7 @@ namespace image.processing.forms
                     if (checkPorColor.Checked)
                     {
                         Color color = panelColorSelected.BackColor;
-                        img  = ImageProcessor.MakeScaleByColor(img, color);
+                        img = ImageProcessor.MakeScaleByColor(img, color);
                     }
                 }
 
@@ -97,24 +97,22 @@ namespace image.processing.forms
                 {
                     if (isPNGImage())
                     {
-                        ImageProcessor.CompressPNG(img, fileName);
+                        img = ImageProcessor.CompressPNG(img);
                     }
                     else
                     {
-                        ImageProcessor.CompressJPG(img, fileName);
+                        img = ImageProcessor.CompressJPG(img);
                     }
                 }
-                else
+
+                using (MemoryStream ms = new MemoryStream(img))
                 {
-                    using (MemoryStream ms = new MemoryStream(img))
+                    using (Image picture = Image.FromStream(ms))
                     {
-                        using (Image picture = Image.FromStream(ms))
-                        {
-                            picture.Save(fileName);
-                        }
+                        picture.Save(fileName);
                     }
                 }
-                
+            
                 MessageBox.Show("Imagen guardada correctamente");
             }
         }
