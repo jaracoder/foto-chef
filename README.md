@@ -16,7 +16,7 @@ Permite las siguientes funcionalidades:
 
 ## Licencia
 
-Este proyecto está bajo la licencia de [GNU General Public License v3.0](https://github.com/jaracoder/ASP.NET.WebControl.Toolkit/blob/main/LICENSE.MD).
+Este proyecto está bajo la licencia de [GNU General Public License v3.0](https://github.com/jaracoder/Foto.Chef/blob/main/LICENSE.MD).
 
 ---
 _escrito con ❤️ por [jaracoder](https://github.com/jaracoder)._
