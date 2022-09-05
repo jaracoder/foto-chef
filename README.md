@@ -6,11 +6,9 @@ Es un aplicación de escritorio desarrollada en <code>C#</code> utilizada como p
 
 ## Características
 
-Permite las siguientes funcionalidades:
-
-- Redimensionar el tamaño.
-- Filtro de escala de grises.
-- Filtro de escala por color.
+- Redimensionar el tamaño de las imágenes.
+- Filtros de escala de grises.
+- Filtros de escala por color.
 - Compresión de imágenes <code>.jpg|.jpeg|.png</code>.
 
 
