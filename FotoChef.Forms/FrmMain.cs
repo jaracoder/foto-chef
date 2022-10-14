@@ -1,11 +1,12 @@
-﻿using image.processing.binary;
+﻿using FotoChef.Models;
 using System;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Reflection;
 using System.Windows.Forms;
 
-namespace image.processing.forms
+namespace FotoChef.Forms
 {
     public partial class FrmMain : Form
     {
@@ -15,7 +16,10 @@ namespace image.processing.forms
 
         public FrmMain()
         {
-            InitializeComponent();     
+            InitializeComponent();
+
+            Text = string.Format(Text, Assembly.GetExecutingAssembly().GetName().Version.ToString());
+
         }
 
         private void btnLoadImage_Click(object sender, EventArgs e)
@@ -34,7 +38,7 @@ namespace image.processing.forms
             if (result == DialogResult.OK)
             {
                 string fileName = openFileDialog1.FileName;
-                imageBox.ImageLocation = fileName;
+                imageChef.ImageLocation = fileName;
                 Name = Path.GetFileNameWithoutExtension(fileName);
                 Extension = Path.GetExtension(fileName);
                 
@@ -48,6 +52,9 @@ namespace image.processing.forms
             {
                 txtWidth.Text = sourceImage.Width.ToString();
                 txtHeight.Text = sourceImage.Height.ToString();
+
+                imageChef.Width = sourceImage.Width;
+                imageChef.Height = sourceImage.Height;
             }
         }
 
@@ -57,12 +64,12 @@ namespace image.processing.forms
             {
                 int newHeight = int.Parse(txtHeight.Text);
                 int newWidth = int.Parse(txtWidth.Text);
-                string fileName = imageBox.ImageLocation;
+                string fileName = imageChef.ImageLocation;
 
                 byte[] img = getByteArrayImageFromFileName(fileName);
-                byte[] newImg = ImageProcessor.ResizeImage(img, newHeight, newWidth);
+              //  byte[] newImg = Chef.ResizeImage(img, newHeight, newWidth);
 
-                processAndSave(newImg);
+                processAndSave(img);
             }
             catch(Exception ex)
             {
@@ -72,23 +79,25 @@ namespace image.processing.forms
 
         private void processAndSave(byte[] img)
         {
+            saveImageDialog.Filter  = "Bitmap Image (.bmp)|*.bmp|Gif Image (.gif)|*.gif|JPEG Image (.jpeg)|*.jpeg|" +
+                "Png Image (.png)|*.png|Tiff Image (.tiff)|*.tiff|Ico Image (.ico)|*.ico|Wmf Image (.wmf)|*.wmf";
             saveImageDialog.FileName = Name + Extension;
 
             if (saveImageDialog.ShowDialog() == DialogResult.OK)
             {
-                string fileName = saveImageDialog.FileName;
-
+                var fileName = saveImageDialog.FileName;
+                var ext = Path.GetExtension(fileName).ToLower();
 
                 if (checkEscalaGrises.Checked)
                 {
-                    img = ImageProcessor.MakeGrayscale3(img);
+                    img = Chef.MakeGrayscale3(img);
                 }
                 else
                 {
                     if (checkPorColor.Checked)
                     {
                         Color color = panelColorSelected.BackColor;
-                        img = ImageProcessor.MakeScaleByColor(img, color);
+                        img = Chef.MakeScaleByColor(img, color);
                     }
                 }
 
@@ -97,11 +106,11 @@ namespace image.processing.forms
                 {
                     if (isPNGImage())
                     {
-                        img = ImageProcessor.CompressPNG(img);
+                        img = Chef.CompressPNG(img);
                     }
                     else
                     {
-                        img = ImageProcessor.CompressJPG(img);
+                        img = Chef.CompressJPG(img);
                     }
                 }
 
@@ -109,7 +118,32 @@ namespace image.processing.forms
                 {
                     using (Image picture = Image.FromStream(ms))
                     {
-                        picture.Save(fileName);
+                        switch (ext)
+                        {
+                            case ".bmp": 
+                                picture.Save(fileName, ImageFormat.Bmp);
+                                break;
+                            case ".gif":
+                                picture.Save(fileName, ImageFormat.Gif);
+                                break;
+                            case ".jpg":
+                                picture.Save(fileName, ImageFormat.Jpeg);
+                                break;
+                            case ".png":
+                                picture.Save(fileName, ImageFormat.Png);
+                                break;
+                            case ".tiff":
+                                picture.Save(fileName, ImageFormat.Tiff);
+                                break;
+                            case ".ico":
+                                picture.Save(fileName, ImageFormat.Icon);
+                                break;
+                            case ".wmf":
+                                picture.Save(fileName, ImageFormat.Wmf);
+                                break;
+                        }
+
+                       
                     }
                 }
             
@@ -159,6 +193,33 @@ namespace image.processing.forms
             {
                 checkPorColor.Checked = false;
             }
+        }
+
+        private void acercaDeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            About aboutDialog = new About();
+            aboutDialog.ShowDialog();
+        }
+
+        private void salirToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void abrirImagenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            LoadImage();
+        }
+
+        private void guardarComoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Save();
+        }
+
+        private void cambiarDeTamañoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new FrmResize(imageChef)
+                .ShowDialog();
         }
     }
 }

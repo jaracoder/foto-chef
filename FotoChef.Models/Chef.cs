@@ -4,11 +4,13 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
+using static System.Net.Mime.MediaTypeNames;
 
-namespace image.processing.binary
+namespace FotoChef.Models
 {
-    public class ImageProcessor
+    public class Chef
     {
+       
 
         /// <summary>
         /// Resize an image from an array of bytes
@@ -17,25 +19,24 @@ namespace image.processing.binary
         /// <param name="height">New height</param>
         /// <param name="maxOfWidth">New max width</param>
         /// <returns></returns>
-        public static byte[] ResizeImage(byte[] imgBytes, int height, int maxOfWidth = 0)
+        public static System.Drawing.Image ResizeImage(System.Drawing.Image img, int width, int height, bool preserveAspectRadio)
         {
-            Image img = MakeImage(imgBytes);
-            int width = Convert.ToInt32(Convert.ToDouble(img.Width) * (Convert.ToDouble(height) / Convert.ToDouble(img.Height)));
-            if (maxOfWidth != 0)
-            {
-                if (width > maxOfWidth)
-                {
-                    height = Convert.ToInt32(Convert.ToDouble(img.Height) *
-                    (Convert.ToDouble(maxOfWidth) / Convert.ToDouble(img.Width)));
-                    width = maxOfWidth;
-                }
-            }
+            //System.Drawing.Image img = Helpers.ByteArrayToImage(imgBytes);
+           //int width = img.Width * (height / img.Height);
+            //if (maxOfWidth != 0)
+            //{
+            //    if (width > maxOfWidth)
+            //    {
+            //        height = img.Height * (maxOfWidth / img.Width);
+            //        width = maxOfWidth;
+            //    }
+            //}
             Size s = new Size(width, height);
-            Image resizedImg = Resize(img, s, true);
+            System.Drawing.Image resizedImg = Resize(img, s, preserveAspectRadio);
 
             using (MemoryStream ms = new MemoryStream())
             {
-                if (ImageFormat.Png.Equals(img.RawFormat))
+                if (ImageFormat.Png == img.RawFormat)
                 {
                     resizedImg.Save(ms, ImageFormat.Png);
                 }
@@ -44,7 +45,7 @@ namespace image.processing.binary
                     resizedImg.Save(ms, ImageFormat.Jpeg);
                 }
 
-                return ms.ToArray();
+                return System.Drawing.Image.FromStream(ms);
             }
         }
 
@@ -215,43 +216,53 @@ namespace image.processing.binary
             return null;
         }
 
-        private static Image MakeImage(byte[] byteArrayIn)
-        {
-            MemoryStream ms = new MemoryStream(byteArrayIn);
-            Image returnImage = Image.FromStream(ms);
-            return returnImage;
-        }
 
-        private static Image Resize(Image image, Size size, bool preserveAspectRatio = true)
+        private static System.Drawing.Image Resize(System.Drawing.Image image, Size size, bool preserveAspectRatio = true)
         {
-            int newWidth;
-            int newHeight;
+            Size newSize = new Size(size.Width, size.Height);
 
+            //int newWidth;
+            //int newHeight;
+            
             if (preserveAspectRatio)
             {
-                int originalWidth = image.Width;
-                int originalHeight = image.Height;
-                float percentWidth = (float)size.Width / (float)originalWidth;
-                float percentHeight = (float)size.Height / (float)originalHeight;
-                float percent = percentHeight < percentWidth ? percentHeight : percentWidth;
-                newWidth = (int)(originalWidth * percent);
-                newHeight = (int)(originalHeight * percent);
-            }
-            else
-            {
-                newWidth = size.Width;
-                newHeight = size.Height;
-            }
+                newSize = CalculateAspectRatio(image.Size, size);
 
-            Image newImage = new Bitmap(newWidth, newHeight);
-            using (Graphics graphicsHandle = Graphics.FromImage(newImage))
-            {
-                graphicsHandle.SmoothingMode = SmoothingMode.AntiAlias;
-                graphicsHandle.InterpolationMode = InterpolationMode.HighQualityBicubic;
-                graphicsHandle.DrawImage(image, 0, 0, newWidth, newHeight);
+                //int originalWidth = image.Width;
+                //int originalHeight = image.Height;
+                //float percentWidth = (float)size.Width / (float)originalWidth;
+                //float percentHeight = (float)size.Height / (float)originalHeight;
+                //float percent = percentHeight < percentWidth ? percentHeight : percentWidth;
+                //newWidth = (int)(originalWidth * percent);
+                //newHeight = (int)(originalHeight * percent);
             }
+            //else
+            //{
+            //    newWidth = size.Width;
+            //    newHeight = size.Height;
+            //}
 
-            return newImage;
+            System.Drawing.Image newImage = new Bitmap(newSize.Width, newSize.Height);
+            using (Graphics gp = Graphics.FromImage(newImage))
+            {
+                gp.SmoothingMode = SmoothingMode.AntiAlias;
+                gp.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                gp.DrawImage(image, 0, 0, newSize.Width, newSize.Height);
+
+                return newImage;
+            }
+        }
+
+        public static Size CalculateAspectRatio(Size current, Size newSize)
+        {
+            float percentWidth = (float)newSize.Width / (float)current.Width;
+            float percentHeight = (float)newSize.Height / (float)current.Height;
+            float percent = (percentHeight < percentWidth ? percentHeight : percentWidth);
+
+            return new Size(
+                (int)(current.Width * percent), 
+                (int)(current.Height * percent)
+            );
         }
 
         #endregion
