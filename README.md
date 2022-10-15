@@ -1,7 +1,8 @@
 # Foto Chef
 [![Licencia: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
-Es un aplicación de escritorio desarrollada en <code>C#</code> utilizada como procesador de imágenes para realizar diferentes tareas de edición y compresión. 
+🖼️ Es un editor de imágenes desarrollado en <code>C#</code> utilizado para manipular y editar diferentes formatos de imágenes.
+
 
 
 ## Características
