@@ -29,18 +29,8 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMain));
-            this.saveImageDialog = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.imageChef = new System.Windows.Forms.PictureBox();
-            this.txtWidth = new System.Windows.Forms.TextBox();
-            this.lblWidth = new System.Windows.Forms.Label();
-            this.lblHeight = new System.Windows.Forms.Label();
-            this.txtHeight = new System.Windows.Forms.TextBox();
-            this.groupRedimension = new System.Windows.Forms.GroupBox();
-            this.panelColorSelected = new System.Windows.Forms.Panel();
-            this.checkPorColor = new System.Windows.Forms.CheckBox();
-            this.checkEscalaGrises = new System.Windows.Forms.CheckBox();
-            this.checkCompresion = new System.Windows.Forms.CheckBox();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.archivoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -48,24 +38,25 @@
             this.guardarComoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.salirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ayudaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.acercaDeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ediciónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.filtrosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cambiarDeTamañoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.comprimirImagenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.filtrosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.escalaDeGrisesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.escalaPorColorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.herramientasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.comprimirImagenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ayudaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.acercaDeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.lblSize = new System.Windows.Forms.ToolStripStatusLabel();
+            this.lblFileSize = new System.Windows.Forms.ToolStripStatusLabel();
+            this.lblExtension = new System.Windows.Forms.ToolStripStatusLabel();
+            this.pnlCanvas = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.imageChef)).BeginInit();
-            this.groupRedimension.SuspendLayout();
             this.menuStrip1.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
+            this.pnlCanvas.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // saveImageDialog
-            // 
-            this.saveImageDialog.DefaultExt = "png";
-            this.saveImageDialog.Filter = "Image files|*.jpg;*.png;";
-            this.saveImageDialog.RestoreDirectory = true;
             // 
             // openFileDialog1
             // 
@@ -76,104 +67,13 @@
             // imageChef
             // 
             this.imageChef.BackColor = System.Drawing.Color.White;
-            this.imageChef.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.imageChef.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.imageChef.Location = new System.Drawing.Point(0, 28);
+            this.imageChef.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.imageChef.Location = new System.Drawing.Point(6, 3);
             this.imageChef.Name = "imageChef";
-            this.imageChef.Size = new System.Drawing.Size(800, 353);
+            this.imageChef.Size = new System.Drawing.Size(752, 588);
             this.imageChef.TabIndex = 0;
             this.imageChef.TabStop = false;
-            // 
-            // txtWidth
-            // 
-            this.txtWidth.Location = new System.Drawing.Point(64, 25);
-            this.txtWidth.Name = "txtWidth";
-            this.txtWidth.Size = new System.Drawing.Size(54, 20);
-            this.txtWidth.TabIndex = 3;
-            // 
-            // lblWidth
-            // 
-            this.lblWidth.AutoSize = true;
-            this.lblWidth.Location = new System.Drawing.Point(20, 28);
-            this.lblWidth.Name = "lblWidth";
-            this.lblWidth.Size = new System.Drawing.Size(38, 13);
-            this.lblWidth.TabIndex = 4;
-            this.lblWidth.Text = "Ancho";
-            // 
-            // lblHeight
-            // 
-            this.lblHeight.AutoSize = true;
-            this.lblHeight.Location = new System.Drawing.Point(138, 28);
-            this.lblHeight.Name = "lblHeight";
-            this.lblHeight.Size = new System.Drawing.Size(25, 13);
-            this.lblHeight.TabIndex = 6;
-            this.lblHeight.Text = "Alto";
-            // 
-            // txtHeight
-            // 
-            this.txtHeight.Location = new System.Drawing.Point(169, 25);
-            this.txtHeight.Name = "txtHeight";
-            this.txtHeight.Size = new System.Drawing.Size(54, 20);
-            this.txtHeight.TabIndex = 5;
-            // 
-            // groupRedimension
-            // 
-            this.groupRedimension.Controls.Add(this.panelColorSelected);
-            this.groupRedimension.Controls.Add(this.checkPorColor);
-            this.groupRedimension.Controls.Add(this.checkEscalaGrises);
-            this.groupRedimension.Controls.Add(this.checkCompresion);
-            this.groupRedimension.Controls.Add(this.txtHeight);
-            this.groupRedimension.Controls.Add(this.txtWidth);
-            this.groupRedimension.Controls.Add(this.lblHeight);
-            this.groupRedimension.Controls.Add(this.lblWidth);
-            this.groupRedimension.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.groupRedimension.Location = new System.Drawing.Point(0, 381);
-            this.groupRedimension.Name = "groupRedimension";
-            this.groupRedimension.Size = new System.Drawing.Size(800, 61);
-            this.groupRedimension.TabIndex = 8;
-            this.groupRedimension.TabStop = false;
-            this.groupRedimension.Text = "Dimensiones";
-            // 
-            // panelColorSelected
-            // 
-            this.panelColorSelected.Location = new System.Drawing.Point(457, 22);
-            this.panelColorSelected.Name = "panelColorSelected";
-            this.panelColorSelected.Size = new System.Drawing.Size(35, 22);
-            this.panelColorSelected.TabIndex = 11;
-            // 
-            // checkPorColor
-            // 
-            this.checkPorColor.AutoSize = true;
-            this.checkPorColor.Location = new System.Drawing.Point(349, 27);
-            this.checkPorColor.Name = "checkPorColor";
-            this.checkPorColor.Size = new System.Drawing.Size(102, 17);
-            this.checkPorColor.TabIndex = 8;
-            this.checkPorColor.Text = "Escala por color";
-            this.checkPorColor.UseVisualStyleBackColor = true;
-            this.checkPorColor.CheckedChanged += new System.EventHandler(this.checkPorColor_CheckedChanged);
-            // 
-            // checkEscalaGrises
-            // 
-            this.checkEscalaGrises.AutoSize = true;
-            this.checkEscalaGrises.Location = new System.Drawing.Point(240, 28);
-            this.checkEscalaGrises.Name = "checkEscalaGrises";
-            this.checkEscalaGrises.Size = new System.Drawing.Size(103, 17);
-            this.checkEscalaGrises.TabIndex = 7;
-            this.checkEscalaGrises.Text = "Escala de grises";
-            this.checkEscalaGrises.UseVisualStyleBackColor = true;
-            this.checkEscalaGrises.CheckedChanged += new System.EventHandler(this.checkEscalaGrises_CheckedChanged);
-            // 
-            // checkCompresion
-            // 
-            this.checkCompresion.AutoSize = true;
-            this.checkCompresion.Checked = true;
-            this.checkCompresion.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkCompresion.Location = new System.Drawing.Point(498, 24);
-            this.checkCompresion.Name = "checkCompresion";
-            this.checkCompresion.Size = new System.Drawing.Size(108, 17);
-            this.checkCompresion.TabIndex = 0;
-            this.checkCompresion.Text = "Comprimir imagen";
-            this.checkCompresion.UseVisualStyleBackColor = true;
+            this.imageChef.DoubleClick += new System.EventHandler(this.FotoChef_OpenImage);
             // 
             // menuStrip1
             // 
@@ -181,10 +81,11 @@
             this.archivoToolStripMenuItem,
             this.ediciónToolStripMenuItem,
             this.filtrosToolStripMenuItem,
+            this.herramientasToolStripMenuItem,
             this.ayudaToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(800, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(1008, 28);
             this.menuStrip1.TabIndex = 11;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -202,28 +103,96 @@
             // abrirImagenToolStripMenuItem
             // 
             this.abrirImagenToolStripMenuItem.Name = "abrirImagenToolStripMenuItem";
-            this.abrirImagenToolStripMenuItem.Size = new System.Drawing.Size(173, 24);
+            this.abrirImagenToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.A)));
+            this.abrirImagenToolStripMenuItem.Size = new System.Drawing.Size(225, 24);
             this.abrirImagenToolStripMenuItem.Text = "Abrir";
-            this.abrirImagenToolStripMenuItem.Click += new System.EventHandler(this.abrirImagenToolStripMenuItem_Click);
+            this.abrirImagenToolStripMenuItem.ToolTipText = "Abrir una imagen nueva.";
+            this.abrirImagenToolStripMenuItem.Click += new System.EventHandler(this.FotoChef_OpenImage);
             // 
             // guardarComoToolStripMenuItem
             // 
+            this.guardarComoToolStripMenuItem.Enabled = false;
             this.guardarComoToolStripMenuItem.Name = "guardarComoToolStripMenuItem";
-            this.guardarComoToolStripMenuItem.Size = new System.Drawing.Size(173, 24);
+            this.guardarComoToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.G)));
+            this.guardarComoToolStripMenuItem.Size = new System.Drawing.Size(225, 24);
             this.guardarComoToolStripMenuItem.Text = "Guardar como";
+            this.guardarComoToolStripMenuItem.ToolTipText = "Guardar los cambios de la imagen.";
             this.guardarComoToolStripMenuItem.Click += new System.EventHandler(this.guardarComoToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(170, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(222, 6);
             // 
             // salirToolStripMenuItem
             // 
             this.salirToolStripMenuItem.Name = "salirToolStripMenuItem";
-            this.salirToolStripMenuItem.Size = new System.Drawing.Size(173, 24);
+            this.salirToolStripMenuItem.Size = new System.Drawing.Size(225, 24);
             this.salirToolStripMenuItem.Text = "Salir";
+            this.salirToolStripMenuItem.ToolTipText = "Cerrar la aplicación.";
             this.salirToolStripMenuItem.Click += new System.EventHandler(this.salirToolStripMenuItem_Click);
+            // 
+            // ediciónToolStripMenuItem
+            // 
+            this.ediciónToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cambiarDeTamañoToolStripMenuItem});
+            this.ediciónToolStripMenuItem.Name = "ediciónToolStripMenuItem";
+            this.ediciónToolStripMenuItem.Size = new System.Drawing.Size(70, 24);
+            this.ediciónToolStripMenuItem.Text = "Edición";
+            // 
+            // cambiarDeTamañoToolStripMenuItem
+            // 
+            this.cambiarDeTamañoToolStripMenuItem.Enabled = false;
+            this.cambiarDeTamañoToolStripMenuItem.Name = "cambiarDeTamañoToolStripMenuItem";
+            this.cambiarDeTamañoToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
+            this.cambiarDeTamañoToolStripMenuItem.Size = new System.Drawing.Size(228, 24);
+            this.cambiarDeTamañoToolStripMenuItem.Text = "Redimensionar";
+            this.cambiarDeTamañoToolStripMenuItem.ToolTipText = "Cambiar el tamaño de la imagen.";
+            this.cambiarDeTamañoToolStripMenuItem.Click += new System.EventHandler(this.cambiarDeTamañoToolStripMenuItem_Click);
+            // 
+            // filtrosToolStripMenuItem
+            // 
+            this.filtrosToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.escalaDeGrisesToolStripMenuItem,
+            this.escalaPorColorToolStripMenuItem});
+            this.filtrosToolStripMenuItem.Name = "filtrosToolStripMenuItem";
+            this.filtrosToolStripMenuItem.Size = new System.Drawing.Size(61, 24);
+            this.filtrosToolStripMenuItem.Text = "Filtros";
+            // 
+            // escalaDeGrisesToolStripMenuItem
+            // 
+            this.escalaDeGrisesToolStripMenuItem.Enabled = false;
+            this.escalaDeGrisesToolStripMenuItem.Name = "escalaDeGrisesToolStripMenuItem";
+            this.escalaDeGrisesToolStripMenuItem.Size = new System.Drawing.Size(198, 24);
+            this.escalaDeGrisesToolStripMenuItem.Text = "Escala de grises";
+            this.escalaDeGrisesToolStripMenuItem.ToolTipText = "Aplicar un filtro de escala de grises.";
+            this.escalaDeGrisesToolStripMenuItem.Click += new System.EventHandler(this.escalaDeGrisesToolStripMenuItem_Click);
+            // 
+            // escalaPorColorToolStripMenuItem
+            // 
+            this.escalaPorColorToolStripMenuItem.Enabled = false;
+            this.escalaPorColorToolStripMenuItem.Name = "escalaPorColorToolStripMenuItem";
+            this.escalaPorColorToolStripMenuItem.Size = new System.Drawing.Size(198, 24);
+            this.escalaPorColorToolStripMenuItem.Text = "Escala por colores";
+            this.escalaPorColorToolStripMenuItem.ToolTipText = "Aplicar un filtro de escala por colores.";
+            this.escalaPorColorToolStripMenuItem.Click += new System.EventHandler(this.escalaPorColorToolStripMenuItem_Click);
+            // 
+            // herramientasToolStripMenuItem
+            // 
+            this.herramientasToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.comprimirImagenToolStripMenuItem});
+            this.herramientasToolStripMenuItem.Name = "herramientasToolStripMenuItem";
+            this.herramientasToolStripMenuItem.Size = new System.Drawing.Size(110, 24);
+            this.herramientasToolStripMenuItem.Text = "Herramientas";
+            // 
+            // comprimirImagenToolStripMenuItem
+            // 
+            this.comprimirImagenToolStripMenuItem.Enabled = false;
+            this.comprimirImagenToolStripMenuItem.Name = "comprimirImagenToolStripMenuItem";
+            this.comprimirImagenToolStripMenuItem.Size = new System.Drawing.Size(203, 24);
+            this.comprimirImagenToolStripMenuItem.Text = "Comprimir imagen";
+            this.comprimirImagenToolStripMenuItem.ToolTipText = "Aplica un algoritmo de compresión para reducir el tamaño de la imagen en disco.";
+            this.comprimirImagenToolStripMenuItem.Click += new System.EventHandler(this.comprimirImagenToolStripMenuItem_Click_1);
             // 
             // ayudaToolStripMenuItem
             // 
@@ -237,92 +206,86 @@
             // 
             this.acercaDeToolStripMenuItem.Name = "acercaDeToolStripMenuItem";
             this.acercaDeToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F12;
-            this.acercaDeToolStripMenuItem.Size = new System.Drawing.Size(176, 24);
+            this.acercaDeToolStripMenuItem.Size = new System.Drawing.Size(180, 24);
             this.acercaDeToolStripMenuItem.Text = "Acerca de";
+            this.acercaDeToolStripMenuItem.ToolTipText = "Acerca de Foto Chef.";
             this.acercaDeToolStripMenuItem.Click += new System.EventHandler(this.acercaDeToolStripMenuItem_Click);
             // 
-            // ediciónToolStripMenuItem
+            // statusStrip1
             // 
-            this.ediciónToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.cambiarDeTamañoToolStripMenuItem,
-            this.comprimirImagenToolStripMenuItem});
-            this.ediciónToolStripMenuItem.Name = "ediciónToolStripMenuItem";
-            this.ediciónToolStripMenuItem.Size = new System.Drawing.Size(70, 24);
-            this.ediciónToolStripMenuItem.Text = "Edición";
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.lblSize,
+            this.lblFileSize,
+            this.lblExtension});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 707);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(1008, 22);
+            this.statusStrip1.TabIndex = 12;
+            this.statusStrip1.Text = "statusStrip1";
             // 
-            // filtrosToolStripMenuItem
+            // lblSize
             // 
-            this.filtrosToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.escalaDeGrisesToolStripMenuItem,
-            this.escalaPorColorToolStripMenuItem});
-            this.filtrosToolStripMenuItem.Name = "filtrosToolStripMenuItem";
-            this.filtrosToolStripMenuItem.Size = new System.Drawing.Size(61, 24);
-            this.filtrosToolStripMenuItem.Text = "Filtros";
+            this.lblSize.Name = "lblSize";
+            this.lblSize.Size = new System.Drawing.Size(110, 20);
+            this.lblSize.Text = "{0} x {1} píxeles";
+            this.lblSize.Visible = false;
             // 
-            // cambiarDeTamañoToolStripMenuItem
+            // lblFileSize
             // 
-            this.cambiarDeTamañoToolStripMenuItem.Name = "cambiarDeTamañoToolStripMenuItem";
-            this.cambiarDeTamañoToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
-            this.cambiarDeTamañoToolStripMenuItem.Text = "Cambiar de tamaño";
-            this.cambiarDeTamañoToolStripMenuItem.Click += new System.EventHandler(this.cambiarDeTamañoToolStripMenuItem_Click);
+            this.lblFileSize.Name = "lblFileSize";
+            this.lblFileSize.Padding = new System.Windows.Forms.Padding(15, 0, 0, 0);
+            this.lblFileSize.Size = new System.Drawing.Size(64, 20);
+            this.lblFileSize.Text = "{0} KB";
+            this.lblFileSize.Visible = false;
             // 
-            // comprimirImagenToolStripMenuItem
+            // lblExtension
             // 
-            this.comprimirImagenToolStripMenuItem.Name = "comprimirImagenToolStripMenuItem";
-            this.comprimirImagenToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
-            this.comprimirImagenToolStripMenuItem.Text = "Comprimir imagen";
+            this.lblExtension.Name = "lblExtension";
+            this.lblExtension.Padding = new System.Windows.Forms.Padding(15, 0, 0, 0);
+            this.lblExtension.Size = new System.Drawing.Size(165, 20);
+            this.lblExtension.Text = "Tipo de imagen: PNG";
+            this.lblExtension.Visible = false;
             // 
-            // escalaDeGrisesToolStripMenuItem
+            // pnlCanvas
             // 
-            this.escalaDeGrisesToolStripMenuItem.Name = "escalaDeGrisesToolStripMenuItem";
-            this.escalaDeGrisesToolStripMenuItem.Size = new System.Drawing.Size(184, 24);
-            this.escalaDeGrisesToolStripMenuItem.Text = "Escala de grises";
-            // 
-            // escalaPorColorToolStripMenuItem
-            // 
-            this.escalaPorColorToolStripMenuItem.Name = "escalaPorColorToolStripMenuItem";
-            this.escalaPorColorToolStripMenuItem.Size = new System.Drawing.Size(184, 24);
-            this.escalaPorColorToolStripMenuItem.Text = "Escala por color";
+            this.pnlCanvas.AutoScroll = true;
+            this.pnlCanvas.BackColor = System.Drawing.Color.White;
+            this.pnlCanvas.Controls.Add(this.imageChef);
+            this.pnlCanvas.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlCanvas.Location = new System.Drawing.Point(0, 28);
+            this.pnlCanvas.Name = "pnlCanvas";
+            this.pnlCanvas.Size = new System.Drawing.Size(1008, 679);
+            this.pnlCanvas.TabIndex = 13;
             // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 442);
-            this.Controls.Add(this.imageChef);
-            this.Controls.Add(this.groupRedimension);
+            this.ClientSize = new System.Drawing.Size(1008, 729);
+            this.Controls.Add(this.pnlCanvas);
             this.Controls.Add(this.menuStrip1);
+            this.Controls.Add(this.statusStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "FrmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Foto Chef {0}";
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmMain_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.imageChef)).EndInit();
-            this.groupRedimension.ResumeLayout(false);
-            this.groupRedimension.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
+            this.pnlCanvas.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.SaveFileDialog saveImageDialog;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.PictureBox imageChef;
-        private System.Windows.Forms.TextBox txtWidth;
-        private System.Windows.Forms.Label lblWidth;
-        private System.Windows.Forms.Label lblHeight;
-        private System.Windows.Forms.TextBox txtHeight;
-        private System.Windows.Forms.GroupBox groupRedimension;
-        private System.Windows.Forms.CheckBox checkCompresion;
-        private System.Windows.Forms.CheckBox checkEscalaGrises;
-        private System.Windows.Forms.CheckBox checkPorColor;
         private System.Windows.Forms.ColorDialog colorDialog1;
-        private System.Windows.Forms.Panel panelColorSelected;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem archivoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ayudaToolStripMenuItem;
@@ -333,10 +296,16 @@
         private System.Windows.Forms.ToolStripMenuItem guardarComoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ediciónToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem cambiarDeTamañoToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem comprimirImagenToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem filtrosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem escalaDeGrisesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem escalaPorColorToolStripMenuItem;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripStatusLabel lblSize;
+        private System.Windows.Forms.ToolStripStatusLabel lblFileSize;
+        private System.Windows.Forms.Panel pnlCanvas;
+        private System.Windows.Forms.ToolStripStatusLabel lblExtension;
+        private System.Windows.Forms.ToolStripMenuItem herramientasToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem comprimirImagenToolStripMenuItem;
     }
 }
 

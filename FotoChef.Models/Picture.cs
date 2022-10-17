@@ -2,13 +2,14 @@
 
 namespace FotoChef.Models
 {
-    public class Picture : Shape
+    public class Picture
     {
-        public string Extension { get; set; }
+        public byte[] Data { get; set; }
 
-        public string FileName { get; set; }
+        public PictureFile File { get; set; }
 
-
+        public PictureFormat Format { get; set; }
+        
         public byte[] ApplyFilter(Filter filterType)
         {
             switch (filterType)

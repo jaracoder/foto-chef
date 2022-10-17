@@ -59,5 +59,15 @@ namespace Jaracoder.FotoChef.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Icon similar a (Icono).
+        /// </summary>
+        internal static System.Drawing.Icon App {
+            get {
+                object obj = ResourceManager.GetObject("App", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
     }
 }

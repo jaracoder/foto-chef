@@ -2,8 +2,8 @@
 using System.Resources;
 using System.Runtime.InteropServices;
 
-[assembly: Guid("119640d3-191c-4bd9-a19f-ba0010059c81")]
-[assembly: AssemblyTitle("Foto Chef")]
+[assembly: Guid("de475748-4314-48d0-8544-6d241ed2602e")]
+[assembly: AssemblyTitle("FotoChef: Forms Helper")]
 [assembly: AssemblyDescription("Herramienta para el tratamiento y edición de imágenes")]
 [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyConfiguration("")]
@@ -13,4 +13,4 @@ using System.Runtime.InteropServices;
 [assembly: NeutralResourcesLanguage("es")]
 [assembly: ComVisible(false)]
 // Incrementar manualmente en cada release
-[assembly: AssemblyFileVersion("1.0.3")]
+[assembly: AssemblyFileVersion("1.0.2")]

@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FotoChef.Forms", "FotoChef.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FotoChef.Models", "FotoChef.Models\FotoChef.Models.csproj", "{7BD96FC6-ED85-4F8E-9637-B291E7235BD1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FotoChef.Forms.Helper", "FotoChef.Forms.Helper\FotoChef.Forms.Helper.csproj", "{DE475748-4314-48D0-8544-6D241ED2602E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{7BD96FC6-ED85-4F8E-9637-B291E7235BD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7BD96FC6-ED85-4F8E-9637-B291E7235BD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7BD96FC6-ED85-4F8E-9637-B291E7235BD1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE475748-4314-48D0-8544-6D241ED2602E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE475748-4314-48D0-8544-6D241ED2602E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE475748-4314-48D0-8544-6D241ED2602E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE475748-4314-48D0-8544-6D241ED2602E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

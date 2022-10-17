@@ -5,6 +5,7 @@ using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
 using static System.Net.Mime.MediaTypeNames;
+using Image = System.Drawing.Image;
 
 namespace FotoChef.Models
 {
@@ -19,20 +20,10 @@ namespace FotoChef.Models
         /// <param name="height">New height</param>
         /// <param name="maxOfWidth">New max width</param>
         /// <returns></returns>
-        public static System.Drawing.Image ResizeImage(System.Drawing.Image img, int width, int height, bool preserveAspectRadio)
+        public static Image ResizeImage(Image img, int width, int height)
         {
-            //System.Drawing.Image img = Helpers.ByteArrayToImage(imgBytes);
-           //int width = img.Width * (height / img.Height);
-            //if (maxOfWidth != 0)
-            //{
-            //    if (width > maxOfWidth)
-            //    {
-            //        height = img.Height * (maxOfWidth / img.Width);
-            //        width = maxOfWidth;
-            //    }
-            //}
             Size s = new Size(width, height);
-            System.Drawing.Image resizedImg = Resize(img, s, preserveAspectRadio);
+            Image resizedImg = Resize(img, s);
 
             using (MemoryStream ms = new MemoryStream())
             {
@@ -113,92 +104,134 @@ namespace FotoChef.Models
         }
 
 
-        public static byte[] MakeGrayscale3(byte[] imgBytes)
+        public static Image ApplyFilter(Image img, Enums.Filter filter, Color color)
         {
-            Bitmap original;
-            using (var ms = new MemoryStream(imgBytes))
+            Bitmap newBitmap = new Bitmap(img.Width, img.Height);
+         
+            using (Graphics grap = Graphics.FromImage(newBitmap))
             {
-                original = new Bitmap(ms);
-            }
-
-            //create a blank bitmap the same size as original
-            Bitmap newBitmap = new Bitmap(original.Width, original.Height);
-
-            //get a graphics object from the new image
-            using (Graphics g = Graphics.FromImage(newBitmap))
-            {
-
-                //create the grayscale ColorMatrix
-                ColorMatrix colorMatrix = new ColorMatrix(
-                   new float[][]
-                   {
-                        new float[] {.3f, .3f, .3f, 0, 0},
-                        new float[] {.59f, .59f, .59f, 0, 0},
-                        new float[] {.11f, .11f, .11f, 0, 0},
-                        new float[] {0, 0, 0, 1, 0},
-                        new float[] {0, 0, 0, 0, 1}
-                   });
-
-                //create some image attributes
-                using (ImageAttributes attributes = new ImageAttributes())
+                using (ImageAttributes attr = new ImageAttributes())
                 {
+                    switch (filter)
+                    {
+                        case Enums.Filter.GrayScale:
 
-                    //set the color matrix attribute
-                    attributes.SetColorMatrix(colorMatrix);
+                            attr.SetColorMatrix(
+                                new ColorMatrix(new float[][]
+                                {
+                                    new float[] {.3f, .3f, .3f, 0, 0},
+                                    new float[] {.59f, .59f, .59f, 0, 0},
+                                    new float[] {.11f, .11f, .11f, 0, 0},
+                                    new float[] {0, 0, 0, 1, 0},
+                                    new float[] {0, 0, 0, 0, 1}
+                                })
+                            );
+                            break;
 
-                    //draw the original image on the new image
-                    //using the grayscale color matrix
-                    g.DrawImage(original, new Rectangle(0, 0, original.Width, original.Height),
-                                0, 0, original.Width, original.Height, GraphicsUnit.Pixel, attributes);
+                        case Enums.Filter.ColorScale:
+
+                            attr.SetColorMatrix(
+                                new ColorMatrix(new float[][]
+                                {
+                                    new float[] { color.R / 255.0f, 0, 0, 0, 0 },
+                                    new float[] { 0, color.G / 255.0f, 0, 0, 0 },
+                                    new float[] { 0, 0, color.B / 255.0f, 0, 0 },
+                                    new float[] { 0, 0, 0, 1, 0 },
+                                    new float[] { 0, 0, 0, 0, 1 }
+                                })
+                            );
+                            break;
+                    }
+
+                    grap.DrawImage(img, new Rectangle(0, 0, img.Width, img.Height),
+                        0, 0, img.Width, img.Height, GraphicsUnit.Pixel, attr);
                 }
             }
 
-            return (byte[])new ImageConverter()
-                .ConvertTo(newBitmap, typeof(byte[]));
+            return newBitmap;
         }
 
+        //public static Image MakeGrayscale3(Image img)
+        //{
+        //    //create a blank bitmap the same size as original
+        //    Bitmap newBitmap = new Bitmap(img.Width, img.Height);
+        //    //newBitmap.fo = img.RawFormat;
 
-        public static byte[] MakeScaleByColor(byte[] imgBytes, Color color)
-        {
-            Bitmap original;
-            using (var ms = new MemoryStream(imgBytes))
-            {
-                original = new Bitmap(ms);
-            }
+        //    //get a graphics object from the new image
+        //    using (Graphics g = Graphics.FromImage(newBitmap))
+        //    {
 
-            //create a blank bitmap the same size as original
-            Bitmap newBitmap = new Bitmap(original.Width, original.Height);
+        //        //create the grayscale ColorMatrix
+        //        ColorMatrix colorMatrix = new ColorMatrix(
+        //           new float[][]
+        //           {
+        //                new float[] {.3f, .3f, .3f, 0, 0},
+        //                new float[] {.59f, .59f, .59f, 0, 0},
+        //                new float[] {.11f, .11f, .11f, 0, 0},
+        //                new float[] {0, 0, 0, 1, 0},
+        //                new float[] {0, 0, 0, 0, 1}
+        //           });
 
-            //get a graphics object from the new image
-            using (Graphics g = Graphics.FromImage(newBitmap))
-            {
-               ColorMatrix colorMatrix = new ColorMatrix(
-                   new float[][]
-                   {
-                        new float[] { color.R / 255.0f, 0, 0, 0, 0 },
-                        new float[] { 0, color.G / 255.0f, 0, 0, 0 },
-                        new float[] { 0, 0, color.B / 255.0f, 0, 0 },
-                        new float[] { 0, 0, 0, 1, 0 },
-                        new float[] { 0, 0, 0, 0, 1 }
-                   });
+        //        //create some image attributes
+        //        using (ImageAttributes attributes = new ImageAttributes())
+        //        {
 
-                //create some image attributes
-                using (ImageAttributes attributes = new ImageAttributes())
-                {
+        //            //set the color matrix attribute
+        //            attributes.SetColorMatrix(colorMatrix);
+                   
+        //            //draw the original image on the new image
+        //            //using the grayscale color matrix
+        //            g.DrawImage(img, new Rectangle(0, 0, img.Width, img.Height), 
+        //                0, 0, img.Width, img.Height, GraphicsUnit.Pixel, attributes);
+        //        }
+        //    }
 
-                    //set the color matrix attribute
-                    attributes.SetColorMatrix(colorMatrix);
+        //    return newBitmap;/*(byte[])new ImageConverter()
+        //        .ConvertTo(newBitmap, typeof(byte[]));*/
+        //}
 
-                    //draw the original image on the new image
-                    //using the grayscale color matrix
-                    g.DrawImage(original, new Rectangle(0, 0, original.Width, original.Height),
-                                0, 0, original.Width, original.Height, GraphicsUnit.Pixel, attributes);
-                }
-            }
 
-            return (byte[])new ImageConverter()
-                .ConvertTo(newBitmap, typeof(byte[]));
-        }
+        //public static byte[] MakeScaleByColor(byte[] imgBytes, Color color)
+        //{
+        //    Bitmap original;
+        //    using (var ms = new MemoryStream(imgBytes))
+        //    {
+        //        original = new Bitmap(ms);
+        //    }
+
+        //    //create a blank bitmap the same size as original
+        //    Bitmap newBitmap = new Bitmap(original.Width, original.Height);
+
+        //    //get a graphics object from the new image
+        //    using (Graphics g = Graphics.FromImage(newBitmap))
+        //    {
+        //       ColorMatrix colorMatrix = new ColorMatrix(
+        //           new float[][]
+        //           {
+        //                new float[] { color.R / 255.0f, 0, 0, 0, 0 },
+        //                new float[] { 0, color.G / 255.0f, 0, 0, 0 },
+        //                new float[] { 0, 0, color.B / 255.0f, 0, 0 },
+        //                new float[] { 0, 0, 0, 1, 0 },
+        //                new float[] { 0, 0, 0, 0, 1 }
+        //           });
+
+        //        //create some image attributes
+        //        using (ImageAttributes attributes = new ImageAttributes())
+        //        {
+
+        //            //set the color matrix attribute
+        //            attributes.SetColorMatrix(colorMatrix);
+
+        //            //draw the original image on the new image
+        //            //using the grayscale color matrix
+        //            g.DrawImage(original, new Rectangle(0, 0, original.Width, original.Height),
+        //                        0, 0, original.Width, original.Height, GraphicsUnit.Pixel, attributes);
+        //        }
+        //    }
+
+        //    return (byte[])new ImageConverter()
+        //        .ConvertTo(newBitmap, typeof(byte[]));
+        //}
 
 
         #region private methods
@@ -217,32 +250,9 @@ namespace FotoChef.Models
         }
 
 
-        private static System.Drawing.Image Resize(System.Drawing.Image image, Size size, bool preserveAspectRatio = true)
+        private static Image Resize(Image image, Size newSize)
         {
-            Size newSize = new Size(size.Width, size.Height);
-
-            //int newWidth;
-            //int newHeight;
-            
-            if (preserveAspectRatio)
-            {
-                newSize = CalculateAspectRatio(image.Size, size);
-
-                //int originalWidth = image.Width;
-                //int originalHeight = image.Height;
-                //float percentWidth = (float)size.Width / (float)originalWidth;
-                //float percentHeight = (float)size.Height / (float)originalHeight;
-                //float percent = percentHeight < percentWidth ? percentHeight : percentWidth;
-                //newWidth = (int)(originalWidth * percent);
-                //newHeight = (int)(originalHeight * percent);
-            }
-            //else
-            //{
-            //    newWidth = size.Width;
-            //    newHeight = size.Height;
-            //}
-
-            System.Drawing.Image newImage = new Bitmap(newSize.Width, newSize.Height);
+            Image newImage = new Bitmap(newSize.Width, newSize.Height);
             using (Graphics gp = Graphics.FromImage(newImage))
             {
                 gp.SmoothingMode = SmoothingMode.AntiAlias;
@@ -255,14 +265,20 @@ namespace FotoChef.Models
 
         public static Size CalculateAspectRatio(Size current, Size newSize)
         {
-            float percentWidth = (float)newSize.Width / (float)current.Width;
-            float percentHeight = (float)newSize.Height / (float)current.Height;
-            float percent = (percentHeight < percentWidth ? percentHeight : percentWidth);
+            float scaleHeight = (float)newSize.Height / (float)current.Height,
+                  scaleWidth = (float)newSize.Width / (float)current.Width,
+                  scale = scaleHeight != 1 ? scaleHeight : scaleWidth;
 
-            return new Size(
-                (int)(current.Width * percent), 
-                (int)(current.Height * percent)
-            );
+            if (scaleHeight != 1)
+            {
+                newSize.Width = (int)(current.Width * scale);
+            }
+            else
+            {
+                newSize.Height = (int)(current.Height * scale);
+            }
+
+            return newSize;
         }
 
         #endregion

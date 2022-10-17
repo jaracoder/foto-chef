@@ -1,4 +1,5 @@
-﻿using FotoChef.Models;
+﻿using FotoChef.Forms.Helper;
+using FotoChef.Models;
 using System;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -10,21 +11,26 @@ namespace FotoChef.Forms
 {
     public partial class FrmMain : Form
     {
-        private string Name = string.Empty;
-        private string Extension = string.Empty;
-      
+        private Image ImgOriginal = null;
+        private byte[] ImgStylizedBytesArray = null;
+        private byte[] ImgCompressed = null;
+        private string FileName = null;
+        private string Extension = null;
 
+        private Dialog pictureDialog;
         public FrmMain()
         {
+            pictureDialog = new Dialog();
+
             InitializeComponent();
 
-            Text = string.Format(Text, Assembly.GetExecutingAssembly().GetName().Version.ToString());
-
+            Version version = Assembly.GetExecutingAssembly().GetName().Version;
+            Text = string.Format(Text, version.Major + "." + version.Minor +  "." + version.Revision.ToString().Substring(0, 1) + " (build " + version.Build + ")");
         }
 
         private void btnLoadImage_Click(object sender, EventArgs e)
         {
-            LoadImage();
+            OpenImage();
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -32,122 +38,151 @@ namespace FotoChef.Forms
             Save();
         }
 
-        private void LoadImage()
+        private void acercaDeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DialogResult result = openFileDialog1.ShowDialog();
-            if (result == DialogResult.OK)
+            new FrmAbout().ShowDialog();
+        }
+
+        private void salirToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void guardarComoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Save();
+        }
+
+        private void cambiarDeTamañoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (new FrmResize(imageChef).ShowDialog() == DialogResult.OK)
             {
-                string fileName = openFileDialog1.FileName;
-                imageChef.ImageLocation = fileName;
-                Name = Path.GetFileNameWithoutExtension(fileName);
-                Extension = Path.GetExtension(fileName);
-                
-                ShowDimensionsImage(fileName);
+                ShowDimensions();
             }
         }
 
-        public void ShowDimensionsImage(string fileName)
+        private void FrmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
-            using (Image sourceImage = Image.FromFile(fileName))
+            if (MessageBox.Show("¿Seguro que desea cerrar la aplicación?",
+               "Cerrar aplicación", MessageBoxButtons.YesNo, MessageBoxIcon.Information) 
+                == DialogResult.No)
             {
-                txtWidth.Text = sourceImage.Width.ToString();
-                txtHeight.Text = sourceImage.Height.ToString();
-
-                imageChef.Width = sourceImage.Width;
-                imageChef.Height = sourceImage.Height;
+                e.Cancel = true;
             }
+        }
+
+        private void FotoChef_OpenImage(object sender, EventArgs e)
+        {
+            OpenImage();
+        }
+
+        private void OpenImage()
+        {
+            FileName = pictureDialog.GetFileNameOpenPictureDialog(defExt: Extension); 
+            
+            if (FileName != string.Empty)
+            {
+                Name = Path.GetFileNameWithoutExtension(FileName);
+                Extension = Path.GetExtension(FileName);
+
+                UpdateImage(FileName);
+                ShowDimensions();
+                EnableOptionsMenu();
+            }
+        }
+
+        private void UpdateImage(string fileName = null, Image image = null, ImageFormat imageFormat = null)
+        {
+            imageChef.Image = (fileName is null ? image : Image.FromFile(FileName));
+            imageChef.Width = imageChef.Image.Width;
+            imageChef.Height = imageChef.Image.Height;
+
+            if (ImgOriginal is null)
+            {
+                ImgOriginal = imageChef.Image;
+            }
+            else
+            {
+                ImgStylizedBytesArray = Helpers.ImageToByteArray(imageChef.Image, ImgOriginal.RawFormat);
+            }
+          
+            ImgCompressed = null;
+        }
+
+        public void ShowDimensions()
+        {
+            lblSize.Text = $"{imageChef.Image.Width} x {imageChef.Image.Height} píxeles";
+            lblFileSize.Text = $"Tamaño: {(Helpers.GetFileSizeImage(FileName) / 1024).ToString()} KB";
+            lblExtension.Text = $"Imagen {Extension.ToUpper().Substring(1)}";
+
+            lblSize.Visible = true;
+            lblFileSize.Visible = true;
+            lblExtension.Visible = true;
+        }
+
+        public void EnableOptionsMenu()
+        {
+            guardarComoToolStripMenuItem.Enabled = true;
+            cambiarDeTamañoToolStripMenuItem.Enabled = true;
+            comprimirImagenToolStripMenuItem.Enabled = true;
+            escalaDeGrisesToolStripMenuItem.Enabled = true;
+            escalaPorColorToolStripMenuItem.Enabled = true;
         }
 
         public void Save()
         {
             try
             {
-                int newHeight = int.Parse(txtHeight.Text);
-                int newWidth = int.Parse(txtWidth.Text);
-                string fileName = imageChef.ImageLocation;
+                var fileName = pictureDialog.GetFileNameSavePictureDialog(defExt: Extension);
 
-                byte[] img = getByteArrayImageFromFileName(fileName);
-              //  byte[] newImg = Chef.ResizeImage(img, newHeight, newWidth);
-
-                processAndSave(img);
-            }
-            catch(Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
-        }
-
-        private void processAndSave(byte[] img)
-        {
-            saveImageDialog.Filter  = "Bitmap Image (.bmp)|*.bmp|Gif Image (.gif)|*.gif|JPEG Image (.jpeg)|*.jpeg|" +
-                "Png Image (.png)|*.png|Tiff Image (.tiff)|*.tiff|Ico Image (.ico)|*.ico|Wmf Image (.wmf)|*.wmf";
-            saveImageDialog.FileName = Name + Extension;
-
-            if (saveImageDialog.ShowDialog() == DialogResult.OK)
-            {
-                var fileName = saveImageDialog.FileName;
-                var ext = Path.GetExtension(fileName).ToLower();
-
-                if (checkEscalaGrises.Checked)
+                if (fileName != string.Empty)
                 {
-                    img = Chef.MakeGrayscale3(img);
-                }
-                else
-                {
-                    if (checkPorColor.Checked)
-                    {
-                        Color color = panelColorSelected.BackColor;
-                        img = Chef.MakeScaleByColor(img, color);
-                    }
-                }
+                    byte[] image = ImgCompressed != null ? ImgCompressed : ImgStylizedBytesArray is null ? 
+                        Helpers.ImageToByteArray(ImgOriginal) : ImgStylizedBytesArray;
 
-
-                if (checkCompresion.Checked)
-                {
-                    if (isPNGImage())
+                    using (MemoryStream ms = new MemoryStream(image))
                     {
-                        img = Chef.CompressPNG(img);
-                    }
-                    else
-                    {
-                        img = Chef.CompressJPG(img);
-                    }
-                }
-
-                using (MemoryStream ms = new MemoryStream(img))
-                {
-                    using (Image picture = Image.FromStream(ms))
-                    {
-                        switch (ext)
+                        using (Image picture = Image.FromStream(ms))
                         {
-                            case ".bmp": 
-                                picture.Save(fileName, ImageFormat.Bmp);
-                                break;
-                            case ".gif":
-                                picture.Save(fileName, ImageFormat.Gif);
-                                break;
-                            case ".jpg":
-                                picture.Save(fileName, ImageFormat.Jpeg);
-                                break;
-                            case ".png":
-                                picture.Save(fileName, ImageFormat.Png);
-                                break;
-                            case ".tiff":
-                                picture.Save(fileName, ImageFormat.Tiff);
-                                break;
-                            case ".ico":
-                                picture.Save(fileName, ImageFormat.Icon);
-                                break;
-                            case ".wmf":
-                                picture.Save(fileName, ImageFormat.Wmf);
-                                break;
-                        }
+                            var imageFormat = ImageFormat.Png;
+                            var ext = Path.GetExtension(fileName).ToLower();
 
-                       
+                            switch (ext)
+                            {
+                                case ".png":
+                                    imageFormat = ImageFormat.Png;
+                                    break;
+                                case ".jpg":
+                                    imageFormat = ImageFormat.Jpeg;
+                                    break;
+                                case ".gif":
+                                    imageFormat = ImageFormat.Gif;
+                                    break;
+                                case ".bmp":
+                                    imageFormat = ImageFormat.Bmp;
+                                    break;
+                                case ".tif":
+                                    imageFormat = ImageFormat.Tiff;
+                                    break;
+                                case ".ico":
+                                    imageFormat = ImageFormat.Icon;
+                                    break;
+                                case ".wmf":
+                                    imageFormat = ImageFormat.Wmf;
+                                    break;
+                            }
+
+                            picture.Save(fileName, imageFormat);
+                        }
                     }
+
+                    MessageBox.Show("La imagen se ha guardado correctamente.", "Imagen guardada", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
                 }
-            
-                MessageBox.Show("Imagen guardada correctamente");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "Error de aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -160,66 +195,39 @@ namespace FotoChef.Forms
             return false;
         }
 
-        private byte[] getByteArrayImageFromFileName(string fileName)
+        private void escalaDeGrisesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            using (Image img = Image.FromFile(fileName))
-            {
-                using (MemoryStream ms = new MemoryStream())
-                {
-                    img.Save(ms, ImageFormat.Png);
+            var color = Color.Gray;
 
-                    return ms.ToArray();
-                }
+            UpdateImage(image: Chef.ApplyFilter(imageChef.Image, Enums.Filter.GrayScale, color), 
+                imageFormat: imageChef.Image.RawFormat );
+        }
+
+        private void escalaPorColorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (colorDialog1.ShowDialog() == DialogResult.OK)
+            {
+                var color = colorDialog1.Color;
+
+                UpdateImage(image: Chef.ApplyFilter(imageChef.Image, Enums.Filter.ColorScale, color), 
+                    imageFormat: imageChef.Image.RawFormat);
             }
         }
 
-        private void checkPorColor_CheckedChanged(object sender, EventArgs e)
+        private void comprimirImagenToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
-            if (checkPorColor.Checked)
+            var img = ImgStylizedBytesArray is null ? Helpers.ImageToByteArray(ImgOriginal) : ImgStylizedBytesArray;
+
+            if (isPNGImage())
             {
-                checkEscalaGrises.Checked = false;
-
-                var result = colorDialog1.ShowDialog();
-                if (result == DialogResult.OK)
-                {
-                    panelColorSelected.BackColor = colorDialog1.Color;
-                }
+                ImgCompressed = Chef.CompressPNG(img);
             }
-        }
-
-        private void checkEscalaGrises_CheckedChanged(object sender, EventArgs e)
-        {
-            if (checkEscalaGrises.Checked)
+            else
             {
-                checkPorColor.Checked = false;
+                ImgCompressed = Chef.CompressJPG(img);
             }
-        }
 
-        private void acercaDeToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            About aboutDialog = new About();
-            aboutDialog.ShowDialog();
-        }
-
-        private void salirToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
-        }
-
-        private void abrirImagenToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            LoadImage();
-        }
-
-        private void guardarComoToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Save();
-        }
-
-        private void cambiarDeTamañoToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            new FrmResize(imageChef)
-                .ShowDialog();
+            MessageBox.Show("La imagen se ha comprimido correctamente.", "Imagen comprimida", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }

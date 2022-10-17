@@ -1,5 +1,5 @@
-﻿using System.Resources;
-using System.Reflection;
+﻿using System.Reflection;
+using System.Resources;
 using System.Runtime.InteropServices;
 
 [assembly: Guid("7bd96fc6-ed85-4f8e-9637-b291e7235bd1")]
@@ -10,8 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyCompany("Jaracoder Technologies")]
 [assembly: AssemblyProduct("Foto Chef")]
 [assembly: AssemblyCopyright("Copyright © 2022")]
-[assembly: AssemblyTrademark("")]
 [assembly: NeutralResourcesLanguage("es")]
 [assembly: ComVisible(false)]
 // Incrementar manualmente en cada release
-[assembly: AssemblyFileVersion("1.0.1")]
+[assembly: AssemblyFileVersion("1.0.2")]
