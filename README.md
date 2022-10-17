@@ -7,10 +7,10 @@
 
 ## Características
 
-- Redimensionar el tamaño de las imágenes.
-- Filtros de escala de grises.
-- Filtros de escala por color.
-- Compresión de imágenes <code>.jpg|.jpeg|.png</code>.
+- Visualización de imágenes con formato <code>PNG, JPEG y GIF</code>.
+- Modificación del tamaño de las imágenes.
+- Establece filtros predefinidos a las imágenes.
+- Herramienta de compresión para imágenes <code>PNG y JPEG</code>.
 
 
 ## Licencia
