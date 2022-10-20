@@ -166,11 +166,10 @@ namespace FotoChef.Forms
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(600, 447);
             this.Controls.Add(this.TableLayoutPanel1);
-            this.Icon = global::Jaracoder.FotoChef.Properties.Resources.App;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FrmAbout";
-            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Acerca de";
             this.TableLayoutPanel1.ResumeLayout(false);

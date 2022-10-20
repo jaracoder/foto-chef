@@ -117,8 +117,17 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.ico" />
+    <Content Include="Assets\About.ico" />
+    <Content Include="Assets\Compress.ico" />
     <Content Include="Assets\Copy.ico" />
+    <Content Include="Assets\Exit.ico" />
+    <Content Include="Assets\Image-Flip.ico" />
+    <Content Include="Assets\Image-Mirror.ico" />
+    <Content Include="Assets\Image-Resize.ico" />
+    <Content Include="Assets\Image-Rotate.ico" />
+    <Content Include="Assets\Open.ico" />
     <Content Include="Assets\Paste.ico" />
+    <Content Include="Assets\Save.ico" />
     <None Include="Resources\App.ico" />
   </ItemGroup>
   <ItemGroup>

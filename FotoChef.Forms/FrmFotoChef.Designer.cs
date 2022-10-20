@@ -86,12 +86,6 @@
             // 
             // menuStrip1
             // 
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1008, 28);
-            this.menuStrip1.TabIndex = 11;
-            this.menuStrip1.Text = "menuStrip1";
-        
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.archivoToolStripMenuItem,
             this.ediciónToolStripMenuItem,
@@ -117,6 +111,7 @@
             // 
             // abrirImagenToolStripMenuItem
             // 
+            this.abrirImagenToolStripMenuItem.Image = global::Jaracoder.FotoChef.Properties.Resources.Open;
             this.abrirImagenToolStripMenuItem.Name = "abrirImagenToolStripMenuItem";
             this.abrirImagenToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.A)));
             this.abrirImagenToolStripMenuItem.Size = new System.Drawing.Size(225, 24);
@@ -127,6 +122,7 @@
             // guardarComoToolStripMenuItem
             // 
             this.guardarComoToolStripMenuItem.Enabled = false;
+            this.guardarComoToolStripMenuItem.Image = global::Jaracoder.FotoChef.Properties.Resources.Save;
             this.guardarComoToolStripMenuItem.Name = "guardarComoToolStripMenuItem";
             this.guardarComoToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.G)));
             this.guardarComoToolStripMenuItem.Size = new System.Drawing.Size(225, 24);
@@ -141,21 +137,25 @@
             // 
             // salirToolStripMenuItem
             // 
+            this.salirToolStripMenuItem.Image = global::Jaracoder.FotoChef.Properties.Resources.Exit;
             this.salirToolStripMenuItem.Name = "salirToolStripMenuItem";
             this.salirToolStripMenuItem.Size = new System.Drawing.Size(225, 24);
             this.salirToolStripMenuItem.Text = "Salir";
             this.salirToolStripMenuItem.ToolTipText = "Cerrar la aplicación.";
             this.salirToolStripMenuItem.Click += new System.EventHandler(this.salirToolStripMenuItem_Click);
-          
             // 
             // ediciónToolStripMenuItem
             // 
             this.ediciónToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.copiarToolStripMenuItem, this.pegarToolStripMenuItem, this.toolStripSeparator3,
-                this.cambiarDeTamañoToolStripMenuItem,  this.toolStripSeparator2,
-                this.girar90ºToolStripMenuItem, this.girar180ºToolStripMenuItem,
-                this.voltearHorizontalmenteToolStripMenuItem, this.voltearVerticalmenteToolStripMenuItem
-            });
+            this.copiarToolStripMenuItem,
+            this.pegarToolStripMenuItem,
+            this.toolStripSeparator3,
+            this.cambiarDeTamañoToolStripMenuItem,
+            this.toolStripSeparator2,
+            this.girar90ºToolStripMenuItem,
+            this.girar180ºToolStripMenuItem,
+            this.voltearHorizontalmenteToolStripMenuItem,
+            this.voltearVerticalmenteToolStripMenuItem});
             this.ediciónToolStripMenuItem.Name = "ediciónToolStripMenuItem";
             this.ediciónToolStripMenuItem.Size = new System.Drawing.Size(70, 24);
             this.ediciónToolStripMenuItem.Text = "Edición";
@@ -163,7 +163,7 @@
             // copiarToolStripMenuItem
             // 
             this.copiarToolStripMenuItem.Enabled = false;
-            this.copiarToolStripMenuItem.Image = null;// ((System.Drawing.Icon)(resources.GetObject("$this.Icon"))); global::Jaracoder.FotoChef.Properties.Resources.Paste;
+            this.copiarToolStripMenuItem.Image = global::Jaracoder.FotoChef.Properties.Resources.Copy;
             this.copiarToolStripMenuItem.Name = "copiarToolStripMenuItem";
             this.copiarToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
             this.copiarToolStripMenuItem.Size = new System.Drawing.Size(238, 24);
@@ -174,7 +174,7 @@
             // pegarToolStripMenuItem
             // 
             this.pegarToolStripMenuItem.Enabled = false;
-            this.pegarToolStripMenuItem.Image = null;//global::Jaracoder.FotoChef.Properties.Resources.Paste;
+            this.pegarToolStripMenuItem.Image = global::Jaracoder.FotoChef.Properties.Resources.Paste;
             this.pegarToolStripMenuItem.Name = "pegarToolStripMenuItem";
             this.pegarToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.V)));
             this.pegarToolStripMenuItem.Size = new System.Drawing.Size(238, 24);
@@ -190,6 +190,7 @@
             // cambiarDeTamañoToolStripMenuItem
             // 
             this.cambiarDeTamañoToolStripMenuItem.Enabled = false;
+            this.cambiarDeTamañoToolStripMenuItem.Image = global::Jaracoder.FotoChef.Properties.Resources.Image_Resize;
             this.cambiarDeTamañoToolStripMenuItem.Name = "cambiarDeTamañoToolStripMenuItem";
             this.cambiarDeTamañoToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
             this.cambiarDeTamañoToolStripMenuItem.Size = new System.Drawing.Size(238, 24);
@@ -205,6 +206,7 @@
             // girar90ºToolStripMenuItem
             // 
             this.girar90ºToolStripMenuItem.Enabled = false;
+            this.girar90ºToolStripMenuItem.Image = global::Jaracoder.FotoChef.Properties.Resources.Image_Rotate;
             this.girar90ºToolStripMenuItem.Name = "girar90ºToolStripMenuItem";
             this.girar90ºToolStripMenuItem.Size = new System.Drawing.Size(238, 24);
             this.girar90ºToolStripMenuItem.Text = "&Girar 90º";
@@ -214,6 +216,7 @@
             // girar180ºToolStripMenuItem
             // 
             this.girar180ºToolStripMenuItem.Enabled = false;
+            this.girar180ºToolStripMenuItem.Image = global::Jaracoder.FotoChef.Properties.Resources.Image_Rotate;
             this.girar180ºToolStripMenuItem.Name = "girar180ºToolStripMenuItem";
             this.girar180ºToolStripMenuItem.Size = new System.Drawing.Size(238, 24);
             this.girar180ºToolStripMenuItem.Text = "Girar 180º";
@@ -223,6 +226,7 @@
             // voltearHorizontalmenteToolStripMenuItem
             // 
             this.voltearHorizontalmenteToolStripMenuItem.Enabled = false;
+            this.voltearHorizontalmenteToolStripMenuItem.Image = global::Jaracoder.FotoChef.Properties.Resources.Image_Mirror;
             this.voltearHorizontalmenteToolStripMenuItem.Name = "voltearHorizontalmenteToolStripMenuItem";
             this.voltearHorizontalmenteToolStripMenuItem.Size = new System.Drawing.Size(238, 24);
             this.voltearHorizontalmenteToolStripMenuItem.Text = "Voltear horizontalmente";
@@ -232,6 +236,7 @@
             // voltearVerticalmenteToolStripMenuItem
             // 
             this.voltearVerticalmenteToolStripMenuItem.Enabled = false;
+            this.voltearVerticalmenteToolStripMenuItem.Image = global::Jaracoder.FotoChef.Properties.Resources.Image_Flip;
             this.voltearVerticalmenteToolStripMenuItem.Name = "voltearVerticalmenteToolStripMenuItem";
             this.voltearVerticalmenteToolStripMenuItem.Size = new System.Drawing.Size(238, 24);
             this.voltearVerticalmenteToolStripMenuItem.Text = "Voltear verticalmente";
@@ -276,6 +281,7 @@
             // comprimirImagenToolStripMenuItem
             // 
             this.comprimirImagenToolStripMenuItem.Enabled = false;
+            this.comprimirImagenToolStripMenuItem.Image = global::Jaracoder.FotoChef.Properties.Resources.Compress;
             this.comprimirImagenToolStripMenuItem.Name = "comprimirImagenToolStripMenuItem";
             this.comprimirImagenToolStripMenuItem.Size = new System.Drawing.Size(203, 24);
             this.comprimirImagenToolStripMenuItem.Text = "Comprimir imagen";
@@ -292,6 +298,7 @@
             // 
             // acercaDeToolStripMenuItem
             // 
+            this.acercaDeToolStripMenuItem.Image = global::Jaracoder.FotoChef.Properties.Resources.About;
             this.acercaDeToolStripMenuItem.Name = "acercaDeToolStripMenuItem";
             this.acercaDeToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F12;
             this.acercaDeToolStripMenuItem.Size = new System.Drawing.Size(176, 24);
@@ -301,9 +308,14 @@
             // 
             // statusStrip1
             // 
-            this.statusStrip1.Location = new System.Drawing.Point(0, 707);
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.lblSize,
+            this.lblExtension,
+            this.lblFileSize,
+            this.lblFileSizeMin});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 704);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1008, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(1008, 25);
             this.statusStrip1.TabIndex = 12;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -345,7 +357,7 @@
             this.pnlCanvas.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlCanvas.Location = new System.Drawing.Point(0, 28);
             this.pnlCanvas.Name = "pnlCanvas";
-            this.pnlCanvas.Size = new System.Drawing.Size(1008, 679);
+            this.pnlCanvas.Size = new System.Drawing.Size(1008, 676);
             this.pnlCanvas.TabIndex = 13;
             // 
             // FrmFotoChef
