@@ -1,6 +1,6 @@
 ﻿namespace FotoChef.Forms
 {
-    partial class FrmMain
+    partial class FrmFotoChef
     {
         /// <summary>
         /// Variable del diseñador necesaria.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMain));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmFotoChef));
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.imageChef = new System.Windows.Forms.PictureBox();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
@@ -39,7 +39,15 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.salirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ediciónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.copiarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pegarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.cambiarDeTamañoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.girar90ºToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.girar180ºToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.voltearHorizontalmenteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.voltearVerticalmenteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.filtrosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.escalaDeGrisesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.escalaPorColorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -49,8 +57,9 @@
             this.acercaDeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.lblSize = new System.Windows.Forms.ToolStripStatusLabel();
-            this.lblFileSize = new System.Windows.Forms.ToolStripStatusLabel();
             this.lblExtension = new System.Windows.Forms.ToolStripStatusLabel();
+            this.lblFileSize = new System.Windows.Forms.ToolStripStatusLabel();
+            this.lblFileSizeMin = new System.Windows.Forms.ToolStripStatusLabel();
             this.pnlCanvas = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.imageChef)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -77,6 +86,12 @@
             // 
             // menuStrip1
             // 
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(1008, 28);
+            this.menuStrip1.TabIndex = 11;
+            this.menuStrip1.Text = "menuStrip1";
+        
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.archivoToolStripMenuItem,
             this.ediciónToolStripMenuItem,
@@ -117,7 +132,7 @@
             this.guardarComoToolStripMenuItem.Size = new System.Drawing.Size(225, 24);
             this.guardarComoToolStripMenuItem.Text = "Guardar como";
             this.guardarComoToolStripMenuItem.ToolTipText = "Guardar los cambios de la imagen.";
-            this.guardarComoToolStripMenuItem.Click += new System.EventHandler(this.guardarComoToolStripMenuItem_Click);
+            this.guardarComoToolStripMenuItem.Click += new System.EventHandler(this.Save);
             // 
             // toolStripSeparator1
             // 
@@ -131,24 +146,97 @@
             this.salirToolStripMenuItem.Text = "Salir";
             this.salirToolStripMenuItem.ToolTipText = "Cerrar la aplicación.";
             this.salirToolStripMenuItem.Click += new System.EventHandler(this.salirToolStripMenuItem_Click);
+          
             // 
             // ediciónToolStripMenuItem
             // 
             this.ediciónToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.cambiarDeTamañoToolStripMenuItem});
+            this.copiarToolStripMenuItem, this.pegarToolStripMenuItem, this.toolStripSeparator3,
+                this.cambiarDeTamañoToolStripMenuItem,  this.toolStripSeparator2,
+                this.girar90ºToolStripMenuItem, this.girar180ºToolStripMenuItem,
+                this.voltearHorizontalmenteToolStripMenuItem, this.voltearVerticalmenteToolStripMenuItem
+            });
             this.ediciónToolStripMenuItem.Name = "ediciónToolStripMenuItem";
             this.ediciónToolStripMenuItem.Size = new System.Drawing.Size(70, 24);
             this.ediciónToolStripMenuItem.Text = "Edición";
+            // 
+            // copiarToolStripMenuItem
+            // 
+            this.copiarToolStripMenuItem.Enabled = false;
+            this.copiarToolStripMenuItem.Image = null;// ((System.Drawing.Icon)(resources.GetObject("$this.Icon"))); global::Jaracoder.FotoChef.Properties.Resources.Paste;
+            this.copiarToolStripMenuItem.Name = "copiarToolStripMenuItem";
+            this.copiarToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
+            this.copiarToolStripMenuItem.Size = new System.Drawing.Size(238, 24);
+            this.copiarToolStripMenuItem.Text = "&Copiar";
+            this.copiarToolStripMenuItem.ToolTipText = "Copiar imagen al portapapeles.";
+            this.copiarToolStripMenuItem.Click += new System.EventHandler(this.copiarToolStripMenuItem_Click);
+            // 
+            // pegarToolStripMenuItem
+            // 
+            this.pegarToolStripMenuItem.Enabled = false;
+            this.pegarToolStripMenuItem.Image = null;//global::Jaracoder.FotoChef.Properties.Resources.Paste;
+            this.pegarToolStripMenuItem.Name = "pegarToolStripMenuItem";
+            this.pegarToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.V)));
+            this.pegarToolStripMenuItem.Size = new System.Drawing.Size(238, 24);
+            this.pegarToolStripMenuItem.Text = "&Pegar";
+            this.pegarToolStripMenuItem.ToolTipText = "Pegar imagen desde el portapapeles.";
+            this.pegarToolStripMenuItem.Click += new System.EventHandler(this.pegarToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(235, 6);
             // 
             // cambiarDeTamañoToolStripMenuItem
             // 
             this.cambiarDeTamañoToolStripMenuItem.Enabled = false;
             this.cambiarDeTamañoToolStripMenuItem.Name = "cambiarDeTamañoToolStripMenuItem";
             this.cambiarDeTamañoToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
-            this.cambiarDeTamañoToolStripMenuItem.Size = new System.Drawing.Size(228, 24);
-            this.cambiarDeTamañoToolStripMenuItem.Text = "Redimensionar";
+            this.cambiarDeTamañoToolStripMenuItem.Size = new System.Drawing.Size(238, 24);
+            this.cambiarDeTamañoToolStripMenuItem.Text = "&Redimensionar";
             this.cambiarDeTamañoToolStripMenuItem.ToolTipText = "Cambiar el tamaño de la imagen.";
             this.cambiarDeTamañoToolStripMenuItem.Click += new System.EventHandler(this.cambiarDeTamañoToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(235, 6);
+            // 
+            // girar90ºToolStripMenuItem
+            // 
+            this.girar90ºToolStripMenuItem.Enabled = false;
+            this.girar90ºToolStripMenuItem.Name = "girar90ºToolStripMenuItem";
+            this.girar90ºToolStripMenuItem.Size = new System.Drawing.Size(238, 24);
+            this.girar90ºToolStripMenuItem.Text = "&Girar 90º";
+            this.girar90ºToolStripMenuItem.ToolTipText = "Girar 90º la imagen en sentido de las agujas del reloj.";
+            this.girar90ºToolStripMenuItem.Click += new System.EventHandler(this.girar90ºToolStripMenuItem_Click);
+            // 
+            // girar180ºToolStripMenuItem
+            // 
+            this.girar180ºToolStripMenuItem.Enabled = false;
+            this.girar180ºToolStripMenuItem.Name = "girar180ºToolStripMenuItem";
+            this.girar180ºToolStripMenuItem.Size = new System.Drawing.Size(238, 24);
+            this.girar180ºToolStripMenuItem.Text = "Girar 180º";
+            this.girar180ºToolStripMenuItem.ToolTipText = "Girar 180º la imagen en sentido de las agujas del reloj.";
+            this.girar180ºToolStripMenuItem.Click += new System.EventHandler(this.girar180ºToolStripMenuItem_Click);
+            // 
+            // voltearHorizontalmenteToolStripMenuItem
+            // 
+            this.voltearHorizontalmenteToolStripMenuItem.Enabled = false;
+            this.voltearHorizontalmenteToolStripMenuItem.Name = "voltearHorizontalmenteToolStripMenuItem";
+            this.voltearHorizontalmenteToolStripMenuItem.Size = new System.Drawing.Size(238, 24);
+            this.voltearHorizontalmenteToolStripMenuItem.Text = "Voltear horizontalmente";
+            this.voltearHorizontalmenteToolStripMenuItem.ToolTipText = "Voltear horizontalmente la imagen.";
+            this.voltearHorizontalmenteToolStripMenuItem.Click += new System.EventHandler(this.voltearHorizontalmenteToolStripMenuItem_Click);
+            // 
+            // voltearVerticalmenteToolStripMenuItem
+            // 
+            this.voltearVerticalmenteToolStripMenuItem.Enabled = false;
+            this.voltearVerticalmenteToolStripMenuItem.Name = "voltearVerticalmenteToolStripMenuItem";
+            this.voltearVerticalmenteToolStripMenuItem.Size = new System.Drawing.Size(238, 24);
+            this.voltearVerticalmenteToolStripMenuItem.Text = "Voltear verticalmente";
+            this.voltearVerticalmenteToolStripMenuItem.ToolTipText = "Voltear verticalmente la imagen.";
+            this.voltearVerticalmenteToolStripMenuItem.Click += new System.EventHandler(this.voltearVerticalmenteToolStripMenuItem_Click);
             // 
             // filtrosToolStripMenuItem
             // 
@@ -191,7 +279,7 @@
             this.comprimirImagenToolStripMenuItem.Name = "comprimirImagenToolStripMenuItem";
             this.comprimirImagenToolStripMenuItem.Size = new System.Drawing.Size(203, 24);
             this.comprimirImagenToolStripMenuItem.Text = "Comprimir imagen";
-            this.comprimirImagenToolStripMenuItem.ToolTipText = "Aplica un algoritmo de compresión para reducir el tamaño de la imagen en disco.";
+            this.comprimirImagenToolStripMenuItem.ToolTipText = "Comprime la imagen para reducir el tamaño en disco.";
             this.comprimirImagenToolStripMenuItem.Click += new System.EventHandler(this.comprimirImagenToolStripMenuItem_Click_1);
             // 
             // ayudaToolStripMenuItem
@@ -206,17 +294,13 @@
             // 
             this.acercaDeToolStripMenuItem.Name = "acercaDeToolStripMenuItem";
             this.acercaDeToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F12;
-            this.acercaDeToolStripMenuItem.Size = new System.Drawing.Size(180, 24);
+            this.acercaDeToolStripMenuItem.Size = new System.Drawing.Size(176, 24);
             this.acercaDeToolStripMenuItem.Text = "Acerca de";
             this.acercaDeToolStripMenuItem.ToolTipText = "Acerca de Foto Chef.";
             this.acercaDeToolStripMenuItem.Click += new System.EventHandler(this.acercaDeToolStripMenuItem_Click);
             // 
             // statusStrip1
             // 
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.lblSize,
-            this.lblFileSize,
-            this.lblExtension});
             this.statusStrip1.Location = new System.Drawing.Point(0, 707);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(1008, 22);
@@ -230,6 +314,14 @@
             this.lblSize.Text = "{0} x {1} píxeles";
             this.lblSize.Visible = false;
             // 
+            // lblExtension
+            // 
+            this.lblExtension.Name = "lblExtension";
+            this.lblExtension.Padding = new System.Windows.Forms.Padding(15, 0, 0, 0);
+            this.lblExtension.Size = new System.Drawing.Size(165, 20);
+            this.lblExtension.Text = "Tipo de imagen: PNG";
+            this.lblExtension.Visible = false;
+            // 
             // lblFileSize
             // 
             this.lblFileSize.Name = "lblFileSize";
@@ -238,13 +330,12 @@
             this.lblFileSize.Text = "{0} KB";
             this.lblFileSize.Visible = false;
             // 
-            // lblExtension
+            // lblFileSizeMin
             // 
-            this.lblExtension.Name = "lblExtension";
-            this.lblExtension.Padding = new System.Windows.Forms.Padding(15, 0, 0, 0);
-            this.lblExtension.Size = new System.Drawing.Size(165, 20);
-            this.lblExtension.Text = "Tipo de imagen: PNG";
-            this.lblExtension.Visible = false;
+            this.lblFileSizeMin.Name = "lblFileSizeMin";
+            this.lblFileSizeMin.Size = new System.Drawing.Size(49, 20);
+            this.lblFileSizeMin.Text = "{0} KB";
+            this.lblFileSizeMin.Visible = false;
             // 
             // pnlCanvas
             // 
@@ -257,7 +348,7 @@
             this.pnlCanvas.Size = new System.Drawing.Size(1008, 679);
             this.pnlCanvas.TabIndex = 13;
             // 
-            // FrmMain
+            // FrmFotoChef
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -267,7 +358,7 @@
             this.Controls.Add(this.statusStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
-            this.Name = "FrmMain";
+            this.Name = "FrmFotoChef";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Foto Chef {0}";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmMain_FormClosing);
@@ -284,7 +375,6 @@
 
         #endregion
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
-        private System.Windows.Forms.PictureBox imageChef;
         private System.Windows.Forms.ColorDialog colorDialog1;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem archivoToolStripMenuItem;
@@ -293,19 +383,29 @@
         private System.Windows.Forms.ToolStripMenuItem abrirImagenToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem salirToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem guardarComoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ediciónToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem cambiarDeTamañoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem filtrosToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem escalaDeGrisesToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem escalaPorColorToolStripMenuItem;
         private System.Windows.Forms.StatusStrip statusStrip1;
-        private System.Windows.Forms.ToolStripStatusLabel lblSize;
-        private System.Windows.Forms.ToolStripStatusLabel lblFileSize;
         private System.Windows.Forms.Panel pnlCanvas;
-        private System.Windows.Forms.ToolStripStatusLabel lblExtension;
         private System.Windows.Forms.ToolStripMenuItem herramientasToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem comprimirImagenToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        internal System.Windows.Forms.PictureBox imageChef;
+        internal System.Windows.Forms.ToolStripStatusLabel lblSize;
+        internal System.Windows.Forms.ToolStripStatusLabel lblFileSize;
+        internal System.Windows.Forms.ToolStripStatusLabel lblFileSizeMin;
+        internal System.Windows.Forms.ToolStripMenuItem guardarComoToolStripMenuItem;
+        internal System.Windows.Forms.ToolStripMenuItem cambiarDeTamañoToolStripMenuItem;
+        internal System.Windows.Forms.ToolStripMenuItem escalaDeGrisesToolStripMenuItem;
+        internal System.Windows.Forms.ToolStripMenuItem escalaPorColorToolStripMenuItem;
+        internal System.Windows.Forms.ToolStripMenuItem girar90ºToolStripMenuItem;
+        internal System.Windows.Forms.ToolStripMenuItem girar180ºToolStripMenuItem;
+        internal System.Windows.Forms.ToolStripMenuItem voltearHorizontalmenteToolStripMenuItem;
+        internal System.Windows.Forms.ToolStripMenuItem voltearVerticalmenteToolStripMenuItem;
+        internal System.Windows.Forms.ToolStripMenuItem comprimirImagenToolStripMenuItem;
+        internal System.Windows.Forms.ToolStripStatusLabel lblExtension;
+        internal System.Windows.Forms.ToolStripMenuItem copiarToolStripMenuItem;
+        internal System.Windows.Forms.ToolStripMenuItem pegarToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
     }
 }
 

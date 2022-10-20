@@ -38,7 +38,6 @@ namespace FotoChef.Models
             //}
         }
 
-
         public static Image ByteArrayToImage(byte[] img)
         {
             using (var ms = new MemoryStream(img))
@@ -48,12 +47,37 @@ namespace FotoChef.Models
             }
         }
 
-
-        public static long GetFileSizeImage(string fileName)
+        public static long GetFileSizeBytes(string fileName)
         {
-            FileInfo fi = new FileInfo(fileName);
-            // File size in bytes
-            return fi.Length;
+            return new FileInfo(fileName).Length; // Bytes
+        }
+
+        public static long GetFileSizeLong(string fileName, bool inKbOrMb = true)
+        {
+            long fileSize = GetFileSizeBytes(fileName);
+
+            if (inKbOrMb)
+            {
+                return fileSize >> 10; //KB (=> fileSize / 1024)
+            }
+            else
+            {
+                return fileSize >> 20; //MB (=> fileSize / 1048576)
+            }
+        }
+
+        public static double GetFileSizeDouble(string fileName, bool inKbOrMb = true)
+        {
+            long fileSize = GetFileSizeBytes(fileName);
+
+            if (inKbOrMb) 
+            {
+                return fileSize / 1024d; //KB
+            }
+            else
+            {
+                return fileSize / 1048576d; //MB
+            }
         }
     }
 }

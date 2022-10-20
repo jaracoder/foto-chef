@@ -10,7 +10,7 @@ namespace FotoChef.Forms
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FrmMain());
+            Application.Run(new FrmFotoChef());
         }
     }
 }

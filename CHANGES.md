@@ -2,12 +2,26 @@
 ==========
 **Foto Chef**
 
+* 1.0.5 (20/10/2022)
+  * Añadida nueva opción para copiar la imagen al portapapeles.
+  * Añadida nueva opción para pegar la imagen al portapapeles.
+  * Añadidas nuevas opciónes para rotar y voltear la imagen.
+  * Creada la clase Canvas para gestionar el formulario principal.
+  * Muestra el tamaño de la imagen con el formato (#.##) en la barra de estado.
+  * Muestra el tamaño de la imagen al comprimirla con el formato (#.##) en la barra de estado.
+  * Añadidos iconos de ejemplo para las opciones del menú.
+
+* 1.0.4 (17/10/2022)
+  * Gestión de los formatos de JPEG (jpg, jpge, jpe, jfif)
+
+
 * 1.0.3 (16/10/2022)
   * Añadido el icono de la aplicación.
   * Actualizado la UI del formulario Acerca de.
   * Creado el proyecto de FotoChef.Forms.Helper con clase Dialog.
   * Refactorizado el código de las funciones principales.
   * Refactorizaciones varias
+
 
 * 1.0.2 (15/10/2022)
   * Corrige bug que impedía guardar la imagen después de redimensionarla.

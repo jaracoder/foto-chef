@@ -13,4 +13,4 @@ using System.Runtime.InteropServices;
 [assembly: NeutralResourcesLanguage("es")]
 [assembly: ComVisible(false)]
 // Incrementar manualmente en cada release
-[assembly: AssemblyFileVersion("1.0.3")]
+[assembly: AssemblyFileVersion("1.0.5")]
