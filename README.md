@@ -7,10 +7,12 @@
 
 ## Características
 
-- Visualización de imágenes con formato <code>PNG, JPEG y GIF</code>.
+- Visualización de imágenes en formato <code>PNG, JPEG y GIF</code>.
 - Modificación del tamaño de las imágenes.
-- Establece filtros predefinidos a las imágenes.
+- Establecer filtros de color o de escala de grises a las imágenes.
 - Herramienta de compresión para imágenes <code>PNG y JPEG</code>.
+- Copiar y pegar imágenes desde el portapapeles.
+- Rotar y voltear las imágenes.
 
 
 ## Licencia
